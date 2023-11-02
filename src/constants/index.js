@@ -160,7 +160,7 @@ const experiences = [
   {
     title: "Full stack Developer",
     company_name: "IMark",
-    icon: meta,
+    icon: "https://www.imarkdigital.com/public/assets/img/imark-logo-primary.png",
     iconBg: "#E6DEDD",
     date: "Sep 2022 - Present",
     points: [
