@@ -24,6 +24,9 @@ import {
   tripguide,
   threejs,
 } from "../assets";
+import note from "./note.png";
+import hotel from "./hotel.png";
+import library from "./library.png";
 
 export const navLinks = [
   {
@@ -97,43 +100,30 @@ const technologies = [
     icon: mongodb,
   },
   {
-    name: "Three JS",
-    icon: threejs,
+    name: "ANgular",
+    icon: "https://static-00.iconduck.com/assets.00/angular-icon-483x512-3apnmqn2.png",
   },
   {
     name: "git",
     icon: git,
   },
   {
-    name: "figma",
-    icon: figma,
+    name: "DotNet",
+    icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQoEpKHgfToDmGYaw5nm5uLgyzR3GZhCkQWAVuyueeb4gRfCQiAhAGAPrVYNp6Qmf6V6M&usqp=CAU",
   },
   {
-    name: "docker",
-    icon: docker,
+    name: "post-man",
+    icon: "https://static-00.iconduck.com/assets.00/postman-icon-497x512-beb7sy75.png",
   },
 ];
 
 const experiences = [
   {
     title: "React.js Developer",
-    company_name: "Starbucks",
-    icon: starbucks,
-    iconBg: "#383E56",
-    date: "March 2020 - April 2021",
-    points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
-  },
-  {
-    title: "React Native Developer",
-    company_name: "Tesla",
-    icon: tesla,
+    company_name: "Tech Mauri",
+    icon: "https://media.licdn.com/dms/image/C560BAQHZLum5D8dsjw/company-logo_200_200/0/1660549853569/techmauri_logo?e=2147483647&v=beta&t=S9oHkjJUHKO7TtsFsMJjnxBYis4vXJSGZDvxgUfECB4",
     iconBg: "#E6DEDD",
-    date: "Jan 2021 - Feb 2022",
+    date: "March 2022 - September 2022",
     points: [
       "Developing and maintaining web applications using React.js and other related technologies.",
       "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
@@ -142,13 +132,26 @@ const experiences = [
     ],
   },
   {
-    title: "Web Developer",
-    company_name: "Shopify",
-    icon: shopify,
-    iconBg: "#383E56",
-    date: "Jan 2022 - Jan 2023",
+    title: "MERN stack Developer",
+    company_name: "Tech Mauri",
+    icon: "https://media.licdn.com/dms/image/C560BAQHZLum5D8dsjw/company-logo_200_200/0/1660549853569/techmauri_logo?e=2147483647&v=beta&t=S9oHkjJUHKO7TtsFsMJjnxBYis4vXJSGZDvxgUfECB4",
+    iconBg: "#E6DEDD",
+    date: "March 2022 - Feb 2022",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
+      "Developing and maintaining web applications using MERN (Mongodb, Express, React, Node) and other related technologies.",
+      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+      "Implementing responsive design and ensuring cross-browser compatibility.",
+      "Participating in code reviews and providing constructive feedback to other developers.",
+    ],
+  },
+  {
+    title: "Angular Developer",
+    company_name: "Imark",
+    icon: "https://www.imarkdigital.com/public/assets/img/imark-logo-primary.png",
+    iconBg: "#E6DEDD",
+    date: "Sep 2022 - Present",
+    points: [
+      "Developing and maintaining web applications using Angular and other related technologies.",
       "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
       "Implementing responsive design and ensuring cross-browser compatibility.",
       "Participating in code reviews and providing constructive feedback to other developers.",
@@ -156,10 +159,10 @@ const experiences = [
   },
   {
     title: "Full stack Developer",
-    company_name: "Meta",
+    company_name: "IMark",
     icon: meta,
     iconBg: "#E6DEDD",
-    date: "Jan 2023 - Present",
+    date: "Sep 2022 - Present",
     points: [
       "Developing and maintaining web applications using React.js and other related technologies.",
       "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
@@ -198,9 +201,9 @@ const testimonials = [
 
 const projects = [
   {
-    name: "Car Rent",
+    name: "MacroStay",
     description:
-      "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+      "Web-based platform that allows users to search, book, and manage Hotel from various providers, providing a convenient and efficient solution for Hotels needs.",
     tags: [
       {
         name: "react",
@@ -211,15 +214,15 @@ const projects = [
         color: "green-text-gradient",
       },
       {
-        name: "tailwind",
+        name: "node-express",
         color: "pink-text-gradient",
       },
     ],
-    image: carrent,
-    source_code_link: "https://github.com/",
+    image: hotel,
+    source_code_link: "https://github.com/Imanda03/MacroStay",
   },
   {
-    name: "Job IT",
+    name: "Note Zipper",
     description:
       "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
     tags: [
@@ -228,37 +231,37 @@ const projects = [
         color: "blue-text-gradient",
       },
       {
-        name: "restapi",
+        name: "mongodb",
         color: "green-text-gradient",
       },
       {
-        name: "scss",
+        name: "node-express",
         color: "pink-text-gradient",
       },
     ],
-    image: jobit,
-    source_code_link: "https://github.com/",
+    image: note,
+    source_code_link: "https://github.com/Imanda03/Note_Zipper",
   },
   {
-    name: "Trip Guide",
+    name: "Library Management System",
     description:
       "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
     tags: [
       {
-        name: "nextjs",
+        name: "Angular",
         color: "blue-text-gradient",
       },
       {
-        name: "supabase",
+        name: "Sql Server",
         color: "green-text-gradient",
       },
       {
-        name: "css",
+        name: "DotNet",
         color: "pink-text-gradient",
       },
     ],
-    image: tripguide,
-    source_code_link: "https://github.com/",
+    image: library,
+    source_code_link: "https://github.com/Imanda03/Library_Management_System",
   },
 ];
 
