@@ -31,7 +31,7 @@ import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 import angular from "./tech/angular.png"
 import dotnet from "./tech/dotnet.png"
-import postman from "./tech/postman.png"
+import postman from "./tech/postman-icon.svg"
 
 export {
   logo,
