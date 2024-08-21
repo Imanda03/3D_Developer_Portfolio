@@ -7,11 +7,15 @@ import {
   Preload,
   useTexture,
 } from "@react-three/drei";
-
 import CanvasLoader from "../Loader";
 
 const Ball = (props) => {
-  const [decal] = useTexture([props.imgUrl]);
+  const [decal, decalLoading] = useTexture([props.imgUrl]);
+
+  if (decalLoading) {
+    // Handle loading state or show a placeholder
+    return null; // or you can return a loading spinner or placeholder here
+  }
 
   return (
     <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
