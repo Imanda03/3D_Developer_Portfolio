@@ -49,7 +49,20 @@ const Hero = () => {
         </div>
       </div>
       {/* Pass isMobile prop to ComputersCanvas */}
-      <ComputersCanvas isMobile={isMobile} />
+      {!isMobile ? (
+        <ComputersCanvas isMobile={isMobile} />
+      ) : (
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <p className="text-white text-center text-lg mb-4 mt-10">
+            Welcome to my portfolio!
+            <br />
+            For a better experience, please view on a larger screen.
+          </p>
+          <div className="w-24 h-24 rounded-full bg-[#915eff] flex items-center justify-center shadow-lg">
+            <p className="text-white text-lg">🎨</p>
+          </div>
+        </div>
+      )}
       <div className="absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center">
         <a href="#about">
           <div className="w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2">
