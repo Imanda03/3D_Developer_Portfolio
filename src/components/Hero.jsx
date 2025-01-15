@@ -42,9 +42,9 @@ const Hero = () => {
             Hi, I'm <span className="text-[#915eff]">Anish Sharma</span>
           </h1>
           <p className={`${styles.heroSubText} mt-2 text-white-100`}>
-            I develop user interfaces
+            I develop web applications
             <br className="sm:block hidden" />
-            <span className="text-[23px]">and web applications </span>
+            <span className="text-[23px]">and mobile applications </span>
           </p>
         </div>
       </div>
@@ -53,13 +53,15 @@ const Hero = () => {
         <ComputersCanvas isMobile={isMobile} />
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <p className="text-white text-center text-lg mb-4 mt-10">
-            Welcome to my portfolio!
+          <p className="text-white text-center text-lg sm:text-xl md:text-2xl font-semibold mb-12 mt-20">
+            Welcome to My Portfolio!
             <br />
-            For a better experience, please view on a larger screen.
+            <span className="text-gray-300 font-light">
+              For a better experience, please view on a larger screen.
+            </span>
           </p>
-          <div className="w-24 h-24 rounded-full bg-[#915eff] flex items-center justify-center shadow-lg">
-            <p className="text-white text-lg">🎨</p>
+          <div className="w-28 h-28 rounded-full bg-[#915eff] flex items-center justify-center shadow-lg transform hover:scale-110 hover:shadow-2xl transition duration-300">
+            <p className="text-white text-3xl">🎨</p>
           </div>
         </div>
       )}

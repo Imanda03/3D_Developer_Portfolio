@@ -7,18 +7,18 @@ import github from "./github.png";
 import menu from "./menu.svg";
 import close from "./close.svg";
 
-import css from "./tech/css.png";
+import css from "./tech/css.svg";
 import docker from "./tech/docker.png";
 import figma from "./tech/figma.png";
-import git from "./tech/git.png";
-import html from "./tech/html.png";
-import javascript from "./tech/javascript.png";
-import mongodb from "./tech/mongodb.png";
-import nodejs from "./tech/nodejs.png";
-import reactjs from "./tech/reactjs.png";
-import redux from "./tech/redux.png";
-import tailwind from "./tech/tailwind.png";
-import typescript from "./tech/typescript.png";
+import git from "./tech/git-icon.svg";
+import html from "./tech/html.svg";
+import javascript from "./tech/js.svg";
+import mongodb from "./tech/mongodb.svg";
+import nodejs from "./tech/nodejs-icon.svg";
+import reactjs from "./tech/reactjs.svg";
+import redux from "./tech/redux.svg";
+import reactNative from "./tech/reactNative.svg";
+import typescript from "./tech/typescript.svg";
 import threejs from "./tech/threejs.svg";
 
 import meta from "./company/meta.png";
@@ -29,9 +29,9 @@ import tesla from "./company/tesla.png";
 import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
-import angular from "./tech/angular.png"
-import dotnet from "./tech/dotnet.png"
-import postman from "./tech/postman-icon.svg"
+import angular from "./tech/angular-icon.svg";
+import dotnet from "./tech/dotnet.svg";
+import postman from "./tech/postman-icon.svg";
 
 export {
   logo,
@@ -52,7 +52,7 @@ export {
   nodejs,
   reactjs,
   redux,
-  tailwind,
+  reactNative,
   typescript,
   threejs,
   meta,
@@ -64,5 +64,5 @@ export {
   tripguide,
   angular,
   dotnet,
-  postman
+  postman,
 };
