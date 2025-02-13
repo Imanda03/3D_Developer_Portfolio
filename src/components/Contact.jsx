@@ -7,7 +7,6 @@ import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
 import { AlertCircle, CheckCircle2, X } from "lucide-react";
 
-// Toast Notification Component
 const Toast = ({ message, type, onClose }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -59,14 +58,6 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
 
-  // Initialize EmailJS with your public key
-  useEffect(() => {
-    emailjs.init({
-      // Replace this with your actual public key from EmailJS dashboard
-      publicKey: "e7DKSL0XNxPXIxvyc",
-    });
-  }, []);
-
   const handleChange = (e) => {
     const { target } = e;
     const { name, value } = target;
@@ -81,18 +72,29 @@ const Contact = () => {
     setLoading(true);
 
     try {
-      const serviceId = import.meta.env.VITE_APP_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID;
+      // Replace these with your actual EmailJS credentials
+      const serviceId = "service_rjqpv5a";
+      const templateId = "template_rfz8pee";
+      const publicKey = "e7DKSL0XNxPXIxvyc";
 
-      if (!serviceId || !templateId) {
+      if (!serviceId || !templateId || !publicKey) {
         throw new Error("EmailJS configuration is missing");
       }
 
-      await emailjs.send(serviceId, templateId, {
-        name: form.name,
-        email: form.email,
-        message: form.message,
-      });
+      const result = await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: form.name,
+          to_name: "Anish Sharma",
+          from_email: form.email,
+          to_email: "asis03ktm@gmail.com",
+          message: form.message,
+        },
+        publicKey
+      );
+
+      console.log("Email sent successfully:", result);
 
       setToast({
         type: "success",
@@ -108,7 +110,7 @@ const Contact = () => {
       console.error("Failed to send email:", error);
       setToast({
         type: "error",
-        message: error.message || "Failed to send email. Please try again.",
+        message: "Failed to send email. Please try again.",
       });
     } finally {
       setLoading(false);
@@ -127,7 +129,7 @@ const Contact = () => {
         )}
       </AnimatePresence>
 
-      {/* <motion.div
+      <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
         className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
       >
@@ -184,7 +186,7 @@ const Contact = () => {
             {loading ? "Sending..." : "Send"}
           </button>
         </form>
-      </motion.div> */}
+      </motion.div>
 
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
