@@ -28,7 +28,7 @@ const Hero = () => {
   
   const link = document.createElement("a");
   link.href = CV_URL;
-  link.download = "Anish_Sharma_CV.pdf"; // Set a custom filename
+  link.download = "Anish_Sharma_CV.pdf";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
