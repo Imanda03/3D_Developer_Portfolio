@@ -135,7 +135,7 @@ const experiences = [
     ],
   },
   {
-    title: "MERN stack Developer",
+    title: "MERN Stack Developer",
     company_name: "Tech Mauri",
     icon: "https://media.licdn.com/dms/image/C560BAQHZLum5D8dsjw/company-logo_200_200/0/1660549853569/techmauri_logo?e=2147483647&v=beta&t=S9oHkjJUHKO7TtsFsMJjnxBYis4vXJSGZDvxgUfECB4",
     iconBg: "#E6DEDD",
@@ -149,7 +149,7 @@ const experiences = [
     ],
   },
   {
-    title: "Full-Stack Developer",
+    title: "MERN Stack Developer",
     company_name: "Wolfmatrix",
     icon: "https://img.shgstatic.com/clutch-static-prod/image/scale/50x50/s3fs-public/logos/capture_20.png",
     iconBg: "#E6DEDD",
@@ -163,20 +163,7 @@ const experiences = [
     ],
   },
   {
-    title: "Full stack Developer",
-    company_name: "Wolfmatrix",
-    icon: "https://img.shgstatic.com/clutch-static-prod/image/scale/50x50/s3fs-public/logos/capture_20.png",
-    iconBg: "#E6DEDD",
-    date: "Sep 2022 - Present",
-    points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
-  },
-  {
-    title: "Full-Stack Developer",
+    title: "React-Native Developer",
     company_name: "Wolfmatrix",
     icon: "https://img.shgstatic.com/clutch-static-prod/image/scale/50x50/s3fs-public/logos/capture_20.png",
     iconBg: "#E6DEDD",

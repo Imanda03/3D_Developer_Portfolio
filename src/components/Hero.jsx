@@ -1,35 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
 import { styles } from "../style";
 import { ComputersCanvas } from "./canvas";
+import { Download } from "lucide-react";
 
 const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Add a listener for changes to the screen size
     const mediaQuery = window.matchMedia("(max-width: 500px)");
-
-    // Set the initial value of the `isMobile` state variable
     setIsMobile(mediaQuery.matches);
 
-    // Define a callback function to handle changes to the media query
     const handleMediaQueryChange = (event) => {
       setIsMobile(event.matches);
     };
 
-    // Add the callback function as a listener for changes to the media query
     mediaQuery.addEventListener("change", handleMediaQueryChange);
 
-    // Remove the listener when the component is unmounted
     return () => {
       mediaQuery.removeEventListener("change", handleMediaQueryChange);
     };
   }, []);
 
+  const handleDownloadCV = () => {
+  // Replace with the actual document ID
+  const CV_URL = "https://docs.google.com/document/d/1lHiOnn_P1hCyfu7yyeSnEhUrkKZzZDr0/export?format=pdf";
+  
+  const link = document.createElement("a");
+  link.href = CV_URL;
+  link.download = "Anish_Sharma_CV.pdf"; // Set a custom filename
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
   return (
     <section className="relative w-full h-screen mx-auto">
+      {/* CV Download Button */}
+      <div className="absolute top-20 right-10 z-10">
+        <button
+          onClick={handleDownloadCV}
+          className="flex items-center gap-2 bg-transparent hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-300"
+        >
+          <span className="text-white text-lg">My CV</span>
+          <Download 
+            className="w-5 h-5 text-white hover:text-[#915eff] transition-colors duration-300" 
+          />
+        </button>
+      </div>
+
       <div
         className={`${styles.paddingX} absolute inset-0 top-[120px] max-w-7xl mx-auto flex flex-row items-start gap-5`}
       >
@@ -48,23 +67,30 @@ const Hero = () => {
           </p>
         </div>
       </div>
-      {/* Pass isMobile prop to ComputersCanvas */}
+
       {!isMobile ? (
         <ComputersCanvas isMobile={isMobile} />
       ) : (
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <p className="text-white text-center text-lg sm:text-xl md:text-2xl font-semibold mb-12 mt-20">
-            Welcome to My Portfolio!
-            <br />
-            <span className="text-gray-300 font-light">
-              For a better experience, please view on a larger screen.
-            </span>
-          </p>
-          <div className="w-28 h-28 rounded-full bg-[#915eff] flex items-center justify-center shadow-lg transform hover:scale-110 hover:shadow-2xl transition duration-300">
-            <p className="text-white text-3xl">🎨</p>
+       <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+          {/* Glassmorphic Welcome Card */}
+          <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 shadow-lg animate-fadeIn">
+            <p className="text-white text-2xl sm:text-3xl font-extrabold leading-snug">
+              Welcome to 
+              <span className="text-[#915eff]"> My Portfolio!</span>
+            </p>
+
+            <p className="text-gray-300 text-sm font-medium mt-2 opacity-90">
+              You're on the mobile version. For a **stunning** experience, visit on a larger screen! ✨
+            </p>
+          </div>
+
+          {/* Glowing Animated Button */}
+          <div className=" w-24 h-24 rounded-full bg-gradient-to-br from-[#915eff] via-[#6a3fcf] to-[#3a1f99] flex items-center justify-center shadow-2xl transition transform hover:scale-110 hover:shadow-purple-500/50 active:scale-95 animate-bounce">
+            <p className="text-white text-4xl drop-shadow-lg">🚀</p>
           </div>
         </div>
       )}
+
       <div className="absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center">
         <a href="#about">
           <div className="w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2">
