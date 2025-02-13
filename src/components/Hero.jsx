@@ -23,16 +23,15 @@ const Hero = () => {
   }, []);
 
   const handleDownloadCV = () => {
-  // Replace with the actual document ID
-  const CV_URL = "https://docs.google.com/document/d/1lHiOnn_P1hCyfu7yyeSnEhUrkKZzZDr0/export?format=pdf";
-  
-  const link = document.createElement("a");
-  link.href = CV_URL;
-  link.download = "Anish_Sharma_CV.pdf";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
+    const CV_URL = "https://docs.google.com/document/d/1lHiOnn_P1hCyfu7yyeSnEhUrkKZzZDr0/export?format=pdf";
+    
+    const link = document.createElement("a");
+    link.href = CV_URL;
+    link.download = "Anish_Sharma_CV.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <section className="relative w-full h-screen mx-auto">
@@ -49,9 +48,7 @@ const Hero = () => {
         </button>
       </div>
 
-      <div
-        className={`${styles.paddingX} absolute inset-0 top-[120px] max-w-7xl mx-auto flex flex-row items-start gap-5`}
-      >
+      <div className={`${styles.paddingX} absolute inset-0 top-[120px] max-w-7xl mx-auto flex flex-row items-start gap-5`}>
         <div className="flex flex-col justify-center items-center mt-5">
           <div className="w-5 h-5 rounded-full bg-[#915eff]" />
           <div className="w-1 sm:h-80 h-40 violet-gradient" />
@@ -60,7 +57,7 @@ const Hero = () => {
           <h1 className={`${styles.heroHeadText} text-white`}>
             Hi, I'm <span className="text-[#915eff]">Anish Sharma</span>
           </h1>
-          <p className={`${styles.heroSubText} mt-2 text-white-100`}>
+          <p className={`${styles.heroSubText} mt-2  text-white-100`}>
             I develop web applications
             <br className="sm:block hidden" />
             <span className="text-[23px]">and mobile applications </span>
@@ -71,23 +68,87 @@ const Hero = () => {
       {!isMobile ? (
         <ComputersCanvas isMobile={isMobile} />
       ) : (
-       <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-          {/* Glassmorphic Welcome Card */}
-          <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 shadow-lg animate-fadeIn">
-            <p className="text-white text-2xl sm:text-3xl font-extrabold leading-snug">
-              Welcome to 
-              <span className="text-[#915eff]"> My Portfolio!</span>
-            </p>
+        <div className="absolute inset-0 flex flex-col top-44 items-center justify-center px-6 text-center">
+        
+          {/* Floating Cards with enhanced animations */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="w-full max-w-md space-y-6"
+          >
+            {/* Welcome Card with enhanced design */}
+            <motion.div 
+              className="backdrop-blur-xl bg-gradient-to-br  "
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              {/* <motion.h3 
+                className="text-2xl font-bold text-white mb-4"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                Welcome To My Portfolio
+              </motion.h3> */}
+              <motion.div 
+                className="flex flex-wrap gap-3 justify-center text-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                <span className="text-white/90">You're on the mobile version.</span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#915eff] to-[#6a3fcf] font-semibold">
+                  For a stunning experience, visit on a larger screen! ✨
+                </span>
+              </motion.div>
+            </motion.div>
 
-            <p className="text-gray-300 text-sm font-medium mt-2 opacity-90">
-              You're on the mobile version. For a **stunning** experience, visit on a larger screen! ✨
-            </p>
-          </div>
+            {/* Animated Stats Section */}
+            {/* <motion.div 
+              className="grid grid-cols-3 gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              {[
+                { label: "Projects", value: "20+", icon: "🎯" },
+                { label: "Experience", value: "3 Years", icon: "⚡" },
+                { label: "Clients", value: "15+", icon: "🤝" }
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 rounded-xl p-4 text-center"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-2xl mb-1">{stat.icon}</div>
+                  <div className="text-xl font-bold text-[#915eff]">{stat.value}</div>
+                  <div className="text-sm text-white/80">{stat.label}</div>
+                </motion.div>
+              ))}
+            </motion.div> */}
+          </motion.div>
 
-          {/* Glowing Animated Button */}
-          <div className=" w-24 h-24 rounded-full bg-gradient-to-br from-[#915eff] via-[#6a3fcf] to-[#3a1f99] flex items-center justify-center shadow-2xl transition transform hover:scale-110 hover:shadow-purple-500/50 active:scale-95 animate-bounce">
-            <p className="text-white text-4xl drop-shadow-lg">🚀</p>
-          </div>
+          {/* Enhanced Glowing Button */}
+            <motion.div 
+            className="mt-8 w-16 h-16 rounded-full bg-gradient-to-br from-[#915eff] via-[#6a3fcf] to-[#3a1f99] flex items-center justify-center shadow-2xl"
+            animate={{
+              scale: [1, 1.1, 1],
+              boxShadow: [
+                "0 0 0 0 rgba(145, 94, 255, 0)",
+                "0 0 30px 15px rgba(145, 94, 255, 0.4)",
+                "0 0 0 0 rgba(145, 94, 255, 0)"
+              ]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          >
+            <p className="text-white text-3xl">🚀</p>
+          </motion.div>
         </div>
       )}
 
