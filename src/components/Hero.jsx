@@ -23,7 +23,7 @@ const Hero = () => {
   }, []);
 
   const handleDownloadCV = () => {
-    const CV_URL = "https://docs.google.com/document/d/1lHiOnn_P1hCyfu7yyeSnEhUrkKZzZDr0/export?format=pdf";
+    const CV_URL = "https://1drv.ms/b/s!AsL4K5r2E9I4sQPRNm0kYD6mH92W?e=jasO0m";
     
     const link = document.createElement("a");
     link.href = CV_URL;
@@ -32,6 +32,18 @@ const Hero = () => {
     link.click();
     document.body.removeChild(link);
   };
+
+//   const handleDownloadCV = () => {
+//   // Update this to the correct filename of your CV in your local folder
+//   const CV_URL = "./anish-sharma-cv.pdf";
+  
+//   const link = document.createElement("a");
+//   link.href = CV_URL;
+//   link.download = "Anish_Sharma_CV.pdf";
+//   document.body.appendChild(link);
+//   link.click();
+//   document.body.removeChild(link);
+// };
 
   return (
     <section className="relative w-full h-screen mx-auto">
