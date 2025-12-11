@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { styles } from "../style";
 import { ComputersCanvas } from "./canvas";
-import { Download } from "lucide-react";
+import { Download, Gamepad2, ChevronDown } from "lucide-react";
 
 const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [showGamesList, setShowGamesList] = useState(false);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 500px)");
@@ -24,7 +25,7 @@ const Hero = () => {
 
   const handleDownloadCV = () => {
     const CV_URL = "https://1drv.ms/b/s!AsL4K5r2E9I4sQPRNm0kYD6mH92W?e=jasO0m";
-    
+
     const link = document.createElement("a");
     link.href = CV_URL;
     link.download = "Anish_Sharma_CV.pdf";
@@ -33,34 +34,110 @@ const Hero = () => {
     document.body.removeChild(link);
   };
 
-//   const handleDownloadCV = () => {
-//   // Update this to the correct filename of your CV in your local folder
-//   const CV_URL = "./anish-sharma-cv.pdf";
-  
-//   const link = document.createElement("a");
-//   link.href = CV_URL;
-//   link.download = "Anish_Sharma_CV.pdf";
-//   document.body.appendChild(link);
-//   link.click();
-//   document.body.removeChild(link);
-// };
+  const games = [
+    {
+      name: "Brick Brew Game",
+      url: "https://brickgame.anish-sharma.com.np",
+      icon: "🎮",
+    },
+  ];
+  //   // Update this to the correct filename of your CV in your local folder
+  //   const CV_URL = "./anish-sharma-cv.pdf";
+
+  //   const link = document.createElement("a");
+  //   link.href = CV_URL;
+  //   link.download = "Anish_Sharma_CV.pdf";
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
 
   return (
     <section className="relative w-full h-screen mx-auto">
-      {/* CV Download Button */}
-      <div className="absolute top-20 right-10 z-10">
+      {/* CV Download Button & Games Button */}
+      <div className="absolute top-20 right-4 sm:right-10 z-10 flex flex-col gap-2 sm:gap-3 items-end">
+        {/* CV Button */}
         <button
           onClick={handleDownloadCV}
-          className="flex items-center gap-2 bg-transparent hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-300"
+          className="flex items-center gap-1 sm:gap-2 bg-transparent hover:bg-white/10 px-2 sm:px-4 py-2 rounded-lg transition-all duration-300"
         >
-          <span className="text-white text-lg">My CV</span>
-          <Download 
-            className="w-5 h-5 text-white hover:text-[#915eff] transition-colors duration-300" 
-          />
+          <span className="text-white text-sm sm:text-lg">My CV</span>
+          <Download className="w-4 sm:w-5 h-4 sm:h-5 text-white hover:text-[#915eff] transition-colors duration-300" />
         </button>
+
+        {/* Games Button with Dropdown */}
+        <div className="relative">
+          <motion.button
+            onClick={() => setShowGamesList(!showGamesList)}
+            className="flex items-center gap-1 sm:gap-2 bg-gradient-to-r from-[#915eff]/20 to-[#6a3fcf]/20 hover:from-[#915eff]/40 hover:to-[#6a3fcf]/40 px-2 sm:px-4 py-2 rounded-lg transition-all duration-300 border border-[#915eff]/30 hover:border-[#915eff]/60"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Gamepad2 className="w-4 sm:w-5 h-4 sm:h-5 text-[#915eff]" />
+            <span className="text-white text-sm sm:text-lg">Games</span>
+            <ChevronDown
+              className="w-4 sm:w-5 h-4 sm:h-5 text-[#915eff] transition-transform duration-300"
+              style={{
+                transform: showGamesList ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            />
+          </motion.button>
+
+          {/* Games Dropdown Menu */}
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={
+              showGamesList
+                ? { opacity: 1, y: 0, scale: 1 }
+                : { opacity: 0, y: -10, scale: 0.95 }
+            }
+            transition={{ duration: 0.2 }}
+            className={`absolute top-full right-0 mt-2 w-48 sm:w-64 backdrop-blur-xl bg-gradient-to-b from-[#0f0f1e]/95 to-[#1a1a2e]/95 border border-[#915eff]/50 rounded-xl overflow-hidden shadow-2xl ${
+              showGamesList ? "pointer-events-auto" : "pointer-events-none"
+            }`}
+          >
+            <div className="p-2 space-y-2">
+              {games.map((game, index) => (
+                <motion.a
+                  key={index}
+                  href={game.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 sm:gap-3 px-2 sm:px-4 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-[#915eff]/10 to-[#6a3fcf]/10 hover:from-[#915eff]/30 hover:to-[#6a3fcf]/30 border border-[#915eff]/20 hover:border-[#915eff]/50 transition-all duration-300 group"
+                  whileHover={{ x: 5 }}
+                >
+                  <span className="text-lg sm:text-2xl">{game.icon}</span>
+                  <div className="flex-1">
+                    <p className="text-white font-semibold text-xs sm:text-sm group-hover:text-[#915eff] transition-colors">
+                      {game.name}
+                    </p>
+                  </div>
+                  <svg
+                    className="w-3 sm:w-4 h-3 sm:h-4 text-[#915eff] group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 6H6v12h4m0 0l8-8m-8 8l-4-4m4 4v6m0-12h4v12h-4"
+                    />
+                  </svg>
+                </motion.a>
+              ))}
+            </div>
+            <div className="px-2 sm:px-4 py-1 sm:py-2 bg-gradient-to-r from-[#915eff]/5 to-[#6a3fcf]/5 border-t border-[#915eff]/20">
+              <p className="text-[#915eff]/70 text-xs">Click to play 🎮</p>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
-      <div className={`${styles.paddingX} absolute inset-0 top-[120px] max-w-7xl mx-auto flex flex-row items-start gap-5`}>
+      <div
+        className={`${styles.paddingX} absolute inset-0 top-[120px] max-w-7xl mx-auto flex flex-row items-start gap-5`}
+      >
         <div className="flex flex-col justify-center items-center mt-5">
           <div className="w-5 h-5 rounded-full bg-[#915eff]" />
           <div className="w-1 sm:h-80 h-40 violet-gradient" />
@@ -81,7 +158,6 @@ const Hero = () => {
         <ComputersCanvas isMobile={isMobile} />
       ) : (
         <div className="absolute inset-0 flex flex-col top-44 items-center justify-center px-6 text-center">
-        
           {/* Floating Cards with enhanced animations */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -90,7 +166,7 @@ const Hero = () => {
             className="w-full max-w-md space-y-6"
           >
             {/* Welcome Card with enhanced design */}
-            <motion.div 
+            <motion.div
               className="backdrop-blur-xl bg-gradient-to-br  "
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
@@ -103,13 +179,15 @@ const Hero = () => {
               >
                 Welcome To My Portfolio
               </motion.h3> */}
-              <motion.div 
+              <motion.div
                 className="flex flex-wrap gap-3 justify-center text-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
               >
-                <span className="text-white/90">You're on the mobile version.</span>
+                <span className="text-white/90">
+                  You're on the mobile version.
+                </span>
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#915eff] to-[#6a3fcf] font-semibold">
                   For a stunning experience, visit on a larger screen! ✨
                 </span>
@@ -143,20 +221,20 @@ const Hero = () => {
           </motion.div>
 
           {/* Enhanced Glowing Button */}
-            <motion.div 
+          <motion.div
             className="mt-8 w-16 h-16 rounded-full bg-gradient-to-br from-[#915eff] via-[#6a3fcf] to-[#3a1f99] flex items-center justify-center shadow-2xl"
             animate={{
               scale: [1, 1.1, 1],
               boxShadow: [
                 "0 0 0 0 rgba(145, 94, 255, 0)",
                 "0 0 30px 15px rgba(145, 94, 255, 0.4)",
-                "0 0 0 0 rgba(145, 94, 255, 0)"
-              ]
+                "0 0 0 0 rgba(145, 94, 255, 0)",
+              ],
             }}
             transition={{
               duration: 2,
               repeat: Infinity,
-              repeatType: "reverse"
+              repeatType: "reverse",
             }}
           >
             <p className="text-white text-3xl">🚀</p>
