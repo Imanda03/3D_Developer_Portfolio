@@ -40,6 +40,11 @@ const Hero = () => {
       url: "https://brickgame.anish-sharma.com.np",
       icon: "🎮",
     },
+    {
+      name: "Neon Runner",
+      url: "https://neonrunner.anish-sharma.com.np/",
+      icon: "⚡",
+    },
   ];
   //   // Update this to the correct filename of your CV in your local folder
   //   const CV_URL = "./anish-sharma-cv.pdf";
