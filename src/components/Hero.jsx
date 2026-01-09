@@ -151,11 +151,107 @@ const Hero = () => {
           <h1 className={`${styles.heroHeadText} text-white`}>
             Hi, I'm <span className="text-[#915eff]">Anish Sharma</span>
           </h1>
-          <p className={`${styles.heroSubText} mt-2  text-white-100`}>
-            I develop web applications
-            <br className="sm:block hidden" />
-            <span className="text-[23px]">and mobile applications </span>
-          </p>
+          <div className="mt-2 relative">
+            <motion.p
+              className={`${styles.heroSubText} text-white-100 relative z-10`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.span
+                className="inline-block"
+                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+              >
+                I develop{" "}
+              </motion.span>
+              <motion.span
+                className="inline-block relative ml-2"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.6,
+                  type: "spring",
+                  stiffness: 200,
+                }}
+              >
+                <span className="relative inline-block">
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#915eff] via-[#6a3fcf] to-[#915eff] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent text-glow">
+                    web applications
+                  </span>
+                  <span className="relative bg-gradient-to-r from-[#915eff] via-[#6a3fcf] to-[#915eff] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent">
+                    web applications
+                  </span>
+                </span>
+              </motion.span>
+              <br className="sm:block hidden" />
+              <motion.span
+                className="inline-block text-[23px] sm:text-[27px]"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
+              >
+                <span className="text-white/80">and </span>
+                <motion.span
+                  className="relative inline-block"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 1.2,
+                    type: "spring",
+                    stiffness: 200,
+                  }}
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#00d4ff] via-[#915eff] to-[#00d4ff] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent text-glow">
+                    mobile applications
+                  </span>
+                  <span className="relative bg-gradient-to-r from-[#00d4ff] via-[#915eff] to-[#00d4ff] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent">
+                    mobile applications
+                  </span>
+                </motion.span>
+              </motion.span>
+            </motion.p>
+
+            {/* Animated background glow effect */}
+            <motion.div
+              className="absolute -inset-4 bg-gradient-to-r from-[#915eff]/20 via-[#6a3fcf]/20 to-[#00d4ff]/20 rounded-2xl blur-2xl"
+              animate={{
+                opacity: [0.3, 0.6, 0.3],
+                scale: [1, 1.05, 1],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+
+            {/* Floating particles effect */}
+            {[...Array(6)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-[#915eff] rounded-full"
+                style={{
+                  left: `${20 + i * 15}%`,
+                  top: `${10 + (i % 2) * 80}%`,
+                }}
+                animate={{
+                  y: [0, -20, 0],
+                  opacity: [0, 1, 0],
+                  scale: [0, 1, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  delay: i * 0.3,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
@@ -163,6 +259,30 @@ const Hero = () => {
         <ComputersCanvas isMobile={isMobile} />
       ) : (
         <div className="absolute inset-0 flex flex-col top-44 items-center justify-center px-6 text-center">
+          {/* Dancing Man - Small animation at the side */}
+          {/* <motion.div
+            className="absolute right-4 sm:right-8 top-1/2 transform -translate-y-1/2 z-10"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <motion.div
+              className="text-3xl sm:text-4xl"
+              animate={{
+                rotate: [0, 10, -10, 10, -10, 0],
+                y: [0, -10, 0, -10, 0],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "easeInOut",
+              }}
+            >
+              🕺
+            </motion.div>
+          </motion.div> */}
+
           {/* Floating Cards with enhanced animations */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

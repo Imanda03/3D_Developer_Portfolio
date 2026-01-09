@@ -13,6 +13,131 @@
   color-scheme: dark;
 }
 
+/* Performance optimizations */
+canvas {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* GPU acceleration for animations */
+[class*="motion"] {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Enhanced Glow Effects */
+.glow-purple {
+  box-shadow: 0 0 20px rgba(145, 94, 255, 0.5),
+    0 0 40px rgba(145, 94, 255, 0.3), 0 0 60px rgba(145, 94, 255, 0.1);
+}
+
+.glow-purple-hover:hover {
+  box-shadow: 0 0 30px rgba(145, 94, 255, 0.7),
+    0 0 60px rgba(145, 94, 255, 0.5), 0 0 90px rgba(145, 94, 255, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Animated Gradient Background */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient {
+  background: linear-gradient(
+    -45deg,
+    #915eff,
+    #6a3fcf,
+    #3a1f99,
+    #915eff
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Pulse Glow */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(145, 94, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(145, 94, 255, 0.8),
+      0 0 60px rgba(145, 94, 255, 0.4);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Shimmer Effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Glass Morphism */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Text Glow */
+.text-glow {
+  text-shadow: 0 0 10px rgba(145, 94, 255, 0.5),
+    0 0 20px rgba(145, 94, 255, 0.3), 0 0 30px rgba(145, 94, 255, 0.1);
+}
+
+/* Enhanced Card Hover */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.card-3d:hover {
+  transform: translateY(-10px) rotateX(5deg);
+}
+
 .hash-span {
   margin-top: -100px;
   padding-bottom: 100px;
