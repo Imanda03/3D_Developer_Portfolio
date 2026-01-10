@@ -56,9 +56,9 @@ const FloatingSocialBar = () => {
   ];
 
   return (
-    <div className="fixed left-4 top-1/2 -translate-y-1/2 z-30 hidden lg:block">
+    <div className="fixed right-4 top-1/2 -translate-y-1/2 z-30">
       <motion.div
-        initial={{ x: -100, opacity: 0 }}
+        initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 1, duration: 0.5 }}
         className="relative"
@@ -66,7 +66,7 @@ const FloatingSocialBar = () => {
         {/* Toggle Button */}
         <motion.button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-14 h-14 rounded-full bg-gradient-to-r from-[#915eff] to-[#6a3fcf] flex items-center justify-center shadow-lg shadow-[#915eff]/50 mb-4 backdrop-blur-sm border border-[#915eff]/30"
+          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-r from-[#915eff] to-[#6a3fcf] flex items-center justify-center shadow-lg shadow-[#915eff]/50 mb-4 backdrop-blur-sm border border-[#915eff]/30"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           animate={{ rotate: isExpanded ? 180 : 0 }}
@@ -81,7 +81,7 @@ const FloatingSocialBar = () => {
                 exit={{ opacity: 0, rotate: 90 }}
                 transition={{ duration: 0.2 }}
               >
-                <X className="w-6 h-6 text-white" />
+                <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </motion.div>
             ) : (
               <motion.div
@@ -91,7 +91,7 @@ const FloatingSocialBar = () => {
                 exit={{ opacity: 0, rotate: -90 }}
                 transition={{ duration: 0.2 }}
               >
-                <MessageCircle className="w-6 h-6 text-white" />
+                <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </motion.div>
             )}
           </AnimatePresence>
@@ -101,11 +101,11 @@ const FloatingSocialBar = () => {
         <AnimatePresence>
           {isExpanded && (
             <motion.div
-              initial={{ opacity: 0, x: -20, scale: 0.8 }}
+              initial={{ opacity: 0, x: 20, scale: 0.8 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: -20, scale: 0.8 }}
+              exit={{ opacity: 0, x: 20, scale: 0.8 }}
               transition={{ duration: 0.3 }}
-              className="flex flex-col gap-3"
+              className="flex flex-col gap-2 sm:gap-3"
             >
               {socialLinks.map((social, index) => {
                 const IconComponent = social.icon;
@@ -115,12 +115,12 @@ const FloatingSocialBar = () => {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1, duration: 0.3 }}
-                    whileHover={{ scale: 1.1, x: 5 }}
+                    whileHover={{ scale: 1.1, x: -5 }}
                     whileTap={{ scale: 0.9 }}
-                    className={`w-14 h-14 rounded-full ${social.bgColor} ${social.hoverBg} border border-white/10 flex items-center justify-center backdrop-blur-sm group relative overflow-hidden`}
+                    className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full ${social.bgColor} ${social.hoverBg} border border-white/10 flex items-center justify-center backdrop-blur-sm group relative overflow-hidden`}
                   >
                     <motion.div
                       className={`absolute inset-0 bg-gradient-to-r ${social.color.replace(
@@ -129,16 +129,16 @@ const FloatingSocialBar = () => {
                       )} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}
                     />
                     <IconComponent
-                      className={`${social.color} w-6 h-6 relative z-10 group-hover:scale-110 transition-transform duration-300`}
+                      className={`${social.color} w-5 h-5 sm:w-6 sm:h-6 relative z-10 group-hover:scale-110 transition-transform duration-300`}
                     />
                     {/* Tooltip */}
                     <motion.div
-                      className="absolute left-full ml-3 px-3 py-1.5 rounded-lg bg-black/90 text-white text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 backdrop-blur-sm border border-white/10"
-                      initial={{ x: -10 }}
+                      className="absolute right-full mr-3 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-black/90 text-white text-xs sm:text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 backdrop-blur-sm border border-white/10"
+                      initial={{ x: 10 }}
                       whileHover={{ x: 0 }}
                     >
                       {social.name}
-                      <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-black/90" />
+                      <div className="absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-black/90" />
                     </motion.div>
                   </motion.a>
                 );
