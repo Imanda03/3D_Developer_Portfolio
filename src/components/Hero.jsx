@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import { styles } from "../style";
-import { ComputersCanvas } from "./canvas";
 import { Download, Gamepad2, ChevronDown } from "lucide-react";
+
+const ComputersCanvas = lazy(() =>
+  import("./canvas/Computers").then(module => ({ default: module.default }))
+);
 
 const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -24,7 +27,7 @@ const Hero = () => {
   }, []);
 
   const handleDownloadCV = () => {
-    const CV_URL = "https://1drv.ms/b/s!AsL4K5r2E9I4sQPRNm0kYD6mH92W?e=jasO0m";
+    const CV_URL = "/Anish_Sharma_CV.pdf";
 
     const link = document.createElement("a");
     link.href = CV_URL;
@@ -51,17 +54,6 @@ const Hero = () => {
       icon: "🐍",
     },
   ];
-  //   // Update this to the correct filename of your CV in your local folder
-  //   const CV_URL = "./anish-sharma-cv.pdf";
-
-  //   const link = document.createElement("a");
-  //   link.href = CV_URL;
-  //   link.download = "Anish_Sharma_CV.pdf";
-  //   document.body.appendChild(link);
-  //   link.click();
-  //   document.body.removeChild(link);
-  // };
-
   return (
     <section className="relative w-full h-screen mx-auto">
       {/* CV Download Button & Games Button */}
@@ -156,112 +148,34 @@ const Hero = () => {
           <h1 className={`${styles.heroHeadText} text-white`}>
             Hi, I'm <span className="text-[#915eff]">Anish Sharma</span>
           </h1>
-          <div className="mt-2 relative">
-            <motion.p
-              className={`${styles.heroSubText} text-white-100 relative z-10`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
-            >
-              <motion.span
-                className="inline-block"
-                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-              >
+          <div className="mt-2">
+            <p className={`${styles.heroSubText} text-white-100 relative z-10`}>
+              <span className="inline-block animate-fade-in-up">
                 I develop{" "}
-              </motion.span>
-              <motion.span
-                className="inline-block relative ml-2"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.6,
-                  type: "spring",
-                  stiffness: 200,
-                }}
-              >
-                <span className="relative inline-block">
-                  <span className="absolute inset-0 bg-gradient-to-r from-[#915eff] via-[#6a3fcf] to-[#915eff] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent text-glow">
-                    web applications
-                  </span>
-                  <span className="relative bg-gradient-to-r from-[#915eff] via-[#6a3fcf] to-[#915eff] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent">
-                    web applications
+              </span>
+              <span className="inline-block relative ml-2 animate-fade-in-scale">
+                <span className="bg-gradient-to-r from-[#915eff] via-[#6a3fcf] to-[#915eff] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent">
+                  web applications
+                </span>
+              </span>
+              <br className="sm:block hidden" />
+              <span className="inline-block text-[23px] sm:text-[27px] animate-fade-in-left">
+                <span className="text-white/80">and </span>
+                <span className="relative inline-block animate-fade-in-scale">
+                  <span className="bg-gradient-to-r from-[#00d4ff] via-[#915eff] to-[#00d4ff] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent">
+                    mobile applications
                   </span>
                 </span>
-              </motion.span>
-              <br className="sm:block hidden" />
-              <motion.span
-                className="inline-block text-[23px] sm:text-[27px]"
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
-              >
-                <span className="text-white/80">and </span>
-                <motion.span
-                  className="relative inline-block"
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 1.2,
-                    type: "spring",
-                    stiffness: 200,
-                  }}
-                >
-                  <span className="absolute inset-0 bg-gradient-to-r from-[#00d4ff] via-[#915eff] to-[#00d4ff] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent text-glow">
-                    mobile applications
-                  </span>
-                  <span className="relative bg-gradient-to-r from-[#00d4ff] via-[#915eff] to-[#00d4ff] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent">
-                    mobile applications
-                  </span>
-                </motion.span>
-              </motion.span>
-            </motion.p>
-
-            {/* Animated background glow effect */}
-            <motion.div
-              className="absolute -inset-4 bg-gradient-to-r from-[#915eff]/20 via-[#6a3fcf]/20 to-[#00d4ff]/20 rounded-2xl blur-2xl"
-              animate={{
-                opacity: [0.3, 0.6, 0.3],
-                scale: [1, 1.05, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-
-            {/* Floating particles effect */}
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 bg-[#915eff] rounded-full"
-                style={{
-                  left: `${20 + i * 15}%`,
-                  top: `${10 + (i % 2) * 80}%`,
-                }}
-                animate={{
-                  y: [0, -20, 0],
-                  opacity: [0, 1, 0],
-                  scale: [0, 1, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: i * 0.3,
-                  ease: "easeInOut",
-                }}
-              />
-            ))}
+              </span>
+            </p>
           </div>
         </div>
       </div>
 
       {!isMobile ? (
-        <ComputersCanvas isMobile={isMobile} />
+        <Suspense fallback={null}>
+          <ComputersCanvas isMobile={isMobile} />
+        </Suspense>
       ) : (
         <div className="absolute inset-0 flex flex-col top-44 items-center justify-center px-6 text-center">
           {/* Dancing Man - Small animation at the side */}

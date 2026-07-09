@@ -15,14 +15,8 @@ import {
   git,
   figma,
   docker,
-  meta,
-  starbucks,
-  tesla,
-  shopify,
   kidcode,
-  carrent,
-  jobit,
-  tripguide,
+  techmauri,
   threejs,
   angular,
   dotnet,
@@ -31,6 +25,9 @@ import {
 import note from "./note.png";
 import hotel from "./hotel.png";
 import library from "./library.png";
+import barber from "./barber.svg";
+import teacherstudents from "./teacherstudents.svg";
+import onlinestore from "./onlinestore.svg";
 
 export const navLinks = [
   {
@@ -125,7 +122,7 @@ const experiences = [
   {
     title: "React.js Developer",
     company_name: "Tech Mauri",
-    icon: "https://media.licdn.com/dms/image/C560BAQHZLum5D8dsjw/company-logo_200_200/0/1660549853569/techmauri_logo?e=2147483647&v=beta&t=S9oHkjJUHKO7TtsFsMJjnxBYis4vXJSGZDvxgUfECB4",
+    icon: techmauri,
     iconBg: "#E6DEDD",
     date: "March 2022 - September 2022",
     points: [
@@ -136,59 +133,32 @@ const experiences = [
     ],
   },
   {
-    title: "MERN Stack Developer",
-    company_name: "Tech Mauri",
-    icon: "https://media.licdn.com/dms/image/C560BAQHZLum5D8dsjw/company-logo_200_200/0/1660549853569/techmauri_logo?e=2147483647&v=beta&t=S9oHkjJUHKO7TtsFsMJjnxBYis4vXJSGZDvxgUfECB4",
-    iconBg: "#E6DEDD",
-    date: "March 2022 - Feb 2022",
-    points: [
-      // "As a intern",
-      "Developing and maintaining web applications using MERN (Mongodb, Express, React, Node) and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
-  },
-  {
-    title: "MERN Stack Developer",
-    company_name: "Wolfmatrix",
+    title: "MERN Stack & React Native Developer",
+    company_name: "Wolfmatrix Pvt. Ltd",
     icon: "https://img.shgstatic.com/clutch-static-prod/image/scale/50x50/s3fs-public/logos/capture_20.png",
     iconBg: "#E6DEDD",
-    date: "Sep 2022 - October 2024",
+    date: "Sep 2022 - November 2025",
     points: [
-      "Developing and maintaining web applications using the MERN stack (MongoDB, Express.js, React, Node.js) and NestJS.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-      "Integrating APIs and optimizing performance for scalable and efficient applications.",
+      "Developed and maintained full-stack web and mobile applications using the MERN stack (MongoDB, Express.js, React, Node.js), NestJS, and React Native.",
+      "Built and shipped products including Concerto Analytics (business intelligence) and Lodbod (shipment management).",
+      "Collaborated with design and product teams to implement user-centric solutions across web and mobile platforms.",
+      "Implemented responsive UI/UX and ensured cross-browser and cross-platform (iOS/Android) compatibility.",
+      "Optimized application performance and implemented scalable architectures.",
+      "Participated in code reviews and providing constructive feedback to other developers.",
     ],
   },
   {
-    title: "React-Native Developer",
-    company_name: "Wolfmatrix",
-    icon: "https://img.shgstatic.com/clutch-static-prod/image/scale/50x50/s3fs-public/logos/capture_20.png",
-    iconBg: "#E6DEDD",
-    date: "Sep 2022 - October 2024",
-    points: [
-      "Developing and maintaining mobile applications using React Native and related technologies.",
-      "Collaborating with cross-functional teams, including designers, product managers, and other developers, to deliver high-quality mobile solutions.",
-      "Implementing responsive UI/UX designs and ensuring compatibility across both iOS and Android platforms.",
-      "Participating in code reviews and providing constructive feedback to improve code quality and team collaboration.",
-      "Optimizing application performance and ensuring seamless user experiences.",
-    ],
-  },
-  {
-    title: "Full Stack Developer",
-    company_name: "KidNCode",
+    title: "Full-Stack Developer & Platform Lead",
+    company_name: "KidnCode (Ed-Tech Platform)",
     icon: kidcode,
     iconBg: "#FFD700",
-    date: "November 2024 - Present",
+    date: "December 2025 - Present",
     points: [
-      "Developing and maintaining web and mobile applications using modern technologies including React, React Native, Node.js, and AI integration.",
-      "Working on educational technology platforms focused on teaching coding and smart thinking to kids.",
-      "Collaborating with cross-functional teams to create innovative solutions that combine technology, AI, and educational content.",
-      "Implementing responsive designs and ensuring optimal user experiences across all platforms.",
-      "Contributing to the development of AI-powered features and smart learning systems.",
+      "Leading development of KidnCode LMS, BigDog e-commerce, enrollment systems, scheduling, and payment integrations.",
+      "Handling platform management alongside hands-on engineering — coordinating priorities, releases, and cross-team delivery.",
+      "Managing DevOps workflows including deployments, CI/CD pipelines, and infrastructure maintenance.",
+      "Building and maintaining React, React Native, Node, SQL, and Supabase-based systems.",
+      "Enhancing performance, security, and automation across the platform.",
     ],
   },
 ];
@@ -225,22 +195,64 @@ const testimonials = [
 
 const projects = [
   {
+    name: "KidnCode LMS",
+    description:
+      "A comprehensive multinational LMS for managing online classes, student enrollments, course materials, and progress tracking. Includes role-based dashboards, automated notifications, seamless class scheduling, and payment integrations via Stripe on a Next.js and Supabase stack.",
+    tags: [
+      { name: "react", color: "blue-text-gradient" },
+      { name: "node", color: "green-text-gradient" },
+      { name: "next", color: "pink-text-gradient" },
+      { name: "supabase", color: "blue-text-gradient" },
+      { name: "stripe", color: "green-text-gradient" },
+      { name: "sql", color: "pink-text-gradient" },
+    ],
+    cover: { from: "#FFD700", to: "#915eff", emoji: "🎓" },
+    live_link: "https://kidncode.com",
+  },
+  {
+    name: "Lodbod",
+    description:
+      "A robust logistics and shipment management solution enabling real-time shipment tracking, warehouse management, delivery status updates, and mobile app support for delivery personnel.",
+    tags: [
+      { name: "nestjs", color: "blue-text-gradient" },
+      { name: "react", color: "green-text-gradient" },
+      { name: "react-native", color: "pink-text-gradient" },
+      { name: "sql", color: "blue-text-gradient" },
+    ],
+    cover: { from: "#00d4ff", to: "#6a3fcf", emoji: "🚚" },
+    live_link: "https://lodbod.com/",
+  },
+  {
+    name: "Concerto Analytics",
+    description:
+      "Smarter business intelligence platform for modeling, visualizing, simulating, and optimizing business opportunities — built while at Wolfmatrix. Powers value driver trees, scenario planning, and data-driven decision-making for enterprise teams.",
+    tags: [
+      { name: "react", color: "blue-text-gradient" },
+      { name: "analytics", color: "green-text-gradient" },
+      { name: "business-intelligence", color: "pink-text-gradient" },
+    ],
+    cover: { from: "#38ef7d", to: "#11998e", emoji: "📊" },
+    live_link: "https://concertoanalytics.com/",
+  },
+  {
+    name: "BigDog E-Commerce",
+    description:
+      "A US-based e-commerce platform with product catalog, cart management, and order workflows — delivered across a React Native mobile app and a Next.js web storefront backed by Supabase.",
+    tags: [
+      { name: "react-native", color: "blue-text-gradient" },
+      { name: "next", color: "green-text-gradient" },
+      { name: "supabase", color: "pink-text-gradient" },
+    ],
+    cover: { from: "#f7971e", to: "#ffd200", emoji: "🛒" },
+  },
+  {
     name: "MacroStay",
     description:
       "Web-based platform that allows users to search, book, and manage Hotel from various providers, providing a convenient and efficient solution for Hotels needs.",
     tags: [
-      {
-        name: "react",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "mongodb",
-        color: "green-text-gradient",
-      },
-      {
-        name: "node-express",
-        color: "pink-text-gradient",
-      },
+      { name: "react", color: "blue-text-gradient" },
+      { name: "mongodb", color: "green-text-gradient" },
+      { name: "node-express", color: "pink-text-gradient" },
     ],
     image: hotel,
     source_code_link: "https://github.com/Imanda03/MacroStay",
@@ -248,20 +260,11 @@ const projects = [
   {
     name: "Note Zipper",
     description:
-      "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+      "Advanced note-taking application built with the MERN stack and Redux, featuring user authentication, markdown support, intelligent search, tag-based organization, and seamless cloud sync across devices.",
     tags: [
-      {
-        name: "react",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "mongodb",
-        color: "green-text-gradient",
-      },
-      {
-        name: "node-express",
-        color: "pink-text-gradient",
-      },
+      { name: "react", color: "blue-text-gradient" },
+      { name: "mongodb", color: "green-text-gradient" },
+      { name: "node-express", color: "pink-text-gradient" },
     ],
     image: note,
     source_code_link: "https://github.com/Imanda03/Note_Zipper",
@@ -269,23 +272,51 @@ const projects = [
   {
     name: "Library Management System",
     description:
-      "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+      "A library management system for cataloging books, managing member records, and tracking borrowing and returns, with a role-based administrative dashboard for librarians.",
     tags: [
-      {
-        name: "Angular",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "Sql Server",
-        color: "green-text-gradient",
-      },
-      {
-        name: "DotNet",
-        color: "pink-text-gradient",
-      },
+      { name: "Angular", color: "blue-text-gradient" },
+      { name: "Sql Server", color: "green-text-gradient" },
+      { name: "DotNet", color: "pink-text-gradient" },
     ],
     image: library,
     source_code_link: "https://github.com/Imanda03/Library_Management_System",
+  },
+  {
+    name: "Barber-MERN",
+    description:
+      "Full-stack barber shop booking platform with multi-role auth for customers, barbers, and shop owners, real-time appointment scheduling, service and review management, and Merge Sort / Binary Search algorithms powering fast slot search and shop ranking.",
+    tags: [
+      { name: "react", color: "blue-text-gradient" },
+      { name: "mongodb", color: "green-text-gradient" },
+      { name: "node-express", color: "pink-text-gradient" },
+    ],
+    image: barber,
+    source_code_link: "https://github.com/Imanda03/Barber-MERN",
+  },
+  {
+    name: "TeacherAndStudents",
+    description:
+      "React, TypeScript, and Tailwind-powered LMS frontend with separate teacher and student portals, interactive dashboards, and built-in documentation viewers on every page.",
+    tags: [
+      { name: "react", color: "blue-text-gradient" },
+      { name: "typescript", color: "green-text-gradient" },
+      { name: "tailwind", color: "pink-text-gradient" },
+    ],
+    image: teacherstudents,
+    source_code_link: "https://github.com/Imanda03/TeacherAndStudents",
+  },
+  {
+    name: "Online-store",
+    description:
+      "A full-featured e-commerce platform with product browsing and filtering, shopping cart management, and order handling — React web app, React Native mobile app, and a Node.js/Express backend with Sequelize ORM and SQL.",
+    tags: [
+      { name: "react", color: "blue-text-gradient" },
+      { name: "react-native", color: "green-text-gradient" },
+      { name: "node-express", color: "pink-text-gradient" },
+      { name: "sequelize", color: "blue-text-gradient" },
+    ],
+    image: onlinestore,
+    source_code_link: "https://github.com/Imanda03/Online-store",
   },
 ];
 

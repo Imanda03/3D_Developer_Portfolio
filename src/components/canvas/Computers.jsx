@@ -1,11 +1,11 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 
 import CanvasLoader from "../Loader";
 
 const Computers = ({ isMobile }) => {
-  const modelPath = isMobile ? './simple_pc/scene.gltf' : './desktop_pc/scene.gltf';
+  const modelPath = isMobile ? './simple_pc/scene.gltf' : './desktop_pc/scene-optimized.glb';
   const computer = useGLTF(modelPath);
 
   return (
@@ -16,8 +16,6 @@ const Computers = ({ isMobile }) => {
         angle={0.12}
         penumbra={1}
         intensity={2}
-        castShadow
-        shadow-mapSize={512}
       />
       {/* <pointLight intensity={1} /> */}
       <primitive
@@ -56,7 +54,6 @@ const ComputersCanvas = () => {
   return (
     <Canvas
       frameloop="demand"
-      shadows
       dpr={[1, 1.5]}
       camera={{ position: [20, 3, 5], fov: 25 }}
       gl={{ 
@@ -74,8 +71,6 @@ const ComputersCanvas = () => {
         />
         <Computers isMobile={isMobile} />
       </Suspense>
-
-      <Preload all />
     </Canvas>
   );
 };

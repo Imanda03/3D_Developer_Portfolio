@@ -32,7 +32,7 @@ const SocialMedia = () => {
     {
       name: "Instagram",
       icon: Instagram,
-      url: "https://www.instagram.com/imanda03/",
+      url: "https://www.instagram.com/ag_aneesh/",
       color: "from-pink-500 via-purple-500 to-orange-500",
       hoverColor:
         "hover:from-pink-400 hover:via-purple-400 hover:to-orange-400",

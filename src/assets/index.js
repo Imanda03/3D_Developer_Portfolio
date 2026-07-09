@@ -21,15 +21,9 @@ import reactNative from "./tech/reactNative.svg";
 import typescript from "./tech/typescript.svg";
 import threejs from "./tech/threejs.svg";
 
-import meta from "./company/meta.png";
-import shopify from "./company/shopify.png";
-import starbucks from "./company/starbucks.png";
-import tesla from "./company/tesla.png";
 import kidcode from "./company/kidncode.png";
+import techmauri from "./company/techmauri.png";
 
-import carrent from "./carrent.png";
-import jobit from "./jobit.png";
-import tripguide from "./tripguide.png";
 import angular from "./tech/angular-icon.svg";
 import dotnet from "./tech/dotnet.svg";
 import postman from "./tech/postman-icon.svg";
@@ -56,14 +50,8 @@ export {
   reactNative,
   typescript,
   threejs,
-  meta,
-  shopify,
-  starbucks,
-  tesla,
   kidcode,
-  carrent,
-  jobit,
-  tripguide,
+  techmauri,
   angular,
   dotnet,
   postman,

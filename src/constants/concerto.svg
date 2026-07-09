@@ -1,0 +1,31 @@
+<svg width="1200" height="620" viewBox="0 0 1200 620" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-ca" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f0f1e"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="accent-ca" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38ef7d"/>
+      <stop offset="100%" stop-color="#11998e"/>
+    </linearGradient>
+    <radialGradient id="glow-ca" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#38ef7d" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#38ef7d" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="620" fill="url(#bg-ca)"/>
+  <rect width="1200" height="620" fill="url(#glow-ca)"/>
+
+  <g transform="translate(600,240)" fill="none" stroke="url(#accent-ca)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <polyline points="-100,50 -60,-40 -20,10 20,-50 60,0 100,-30"/>
+    <line x1="-100" y1="50" x2="100" y2="50"/>
+    <line x1="-100" y1="50" x2="-100" y2="-60"/>
+    <rect x="55" y="-95" width="55" height="35" rx="6"/>
+    <line x1="65" y1="-80" x2="100" y2="-80"/>
+    <line x1="65" y1="-68" x2="90" y2="-68"/>
+  </g>
+
+  <text x="600" y="450" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="48" font-weight="700" fill="#ffffff">Concerto Analytics</text>
+  <text x="600" y="500" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="26" fill="#aaa6b9">Smarter Business Intelligence</text>
+  <text x="600" y="555" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="20" fill="#38ef7d">Model · Visualise · Simulate · Optimise</text>
+</svg>

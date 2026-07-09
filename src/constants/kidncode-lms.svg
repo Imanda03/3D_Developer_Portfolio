@@ -1,0 +1,31 @@
+<svg width="1200" height="620" viewBox="0 0 1200 620" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-kc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f0f1e"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="accent-kc" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#915eff"/>
+    </linearGradient>
+    <radialGradient id="glow-kc" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="620" fill="url(#bg-kc)"/>
+  <rect width="1200" height="620" fill="url(#glow-kc)"/>
+
+  <g transform="translate(600,235)" fill="none" stroke="url(#accent-kc)" stroke-width="8" stroke-linejoin="round">
+    <rect x="-110" y="-60" width="220" height="150" rx="14"/>
+    <line x1="-70" y1="-20" x2="70" y2="-20"/>
+    <line x1="-70" y1="10" x2="40" y2="10"/>
+    <line x1="-70" y1="40" x2="55" y2="40"/>
+    <circle cx="75" cy="55" r="22" fill="url(#accent-kc)" stroke="none"/>
+    <path d="M65 55 L73 63 L88 48" stroke="#0f0f1e" stroke-width="5" fill="none"/>
+  </g>
+
+  <text x="600" y="450" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="52" font-weight="700" fill="#ffffff">KidnCode LMS</text>
+  <text x="600" y="500" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="26" fill="#aaa6b9">Multinational Learning Platform</text>
+  <text x="600" y="555" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="20" fill="#FFD700">Next · Supabase · Stripe · SQL</text>
+</svg>

@@ -32,7 +32,7 @@ const FloatingSocialBar = () => {
     {
       name: "Instagram",
       icon: Instagram,
-      url: "https://www.instagram.com/imanda03/",
+      url: "https://www.instagram.com/ag_aneesh/",
       color: "text-pink-400",
       bgColor: "bg-pink-500/20",
       hoverBg: "hover:bg-pink-500/30",

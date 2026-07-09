@@ -1,0 +1,30 @@
+<svg width="1200" height="620" viewBox="0 0 1200 620" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-bd" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f0f1e"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="accent-bd" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f7971e"/>
+      <stop offset="100%" stop-color="#ffd200"/>
+    </linearGradient>
+    <radialGradient id="glow-bd" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffd200" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#ffd200" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="620" fill="url(#bg-bd)"/>
+  <rect width="1200" height="620" fill="url(#glow-bd)"/>
+
+  <g transform="translate(600,235)" fill="none" stroke="url(#accent-bd)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M-90 -30 L-70 -90 L70 -90 L90 -30 Z"/>
+    <rect x="-100" y="-30" width="200" height="140" rx="10"/>
+    <path d="M-35 -30 a35 35 0 0 0 70 0"/>
+    <circle cx="75" cy="-55" r="18" fill="url(#accent-bd)" stroke="none"/>
+    <text x="75" y="-49" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="18" font-weight="700" fill="#0f0f1e">$</text>
+  </g>
+
+  <text x="600" y="450" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="58" font-weight="700" fill="#ffffff">BigDog</text>
+  <text x="600" y="500" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="26" fill="#aaa6b9">US E-Commerce Platform</text>
+  <text x="600" y="555" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="20" fill="#ffd200">React Native · Next · Supabase</text>
+</svg>

@@ -19,12 +19,6 @@ canvas {
   transform: translateZ(0);
 }
 
-/* GPU acceleration for animations */
-[class*="motion"] {
-  will-change: transform, opacity;
-  transform: translateZ(0);
-}
-
 /* Enhanced Glow Effects */
 .glow-purple {
   box-shadow: 0 0 20px rgba(145, 94, 255, 0.5),
