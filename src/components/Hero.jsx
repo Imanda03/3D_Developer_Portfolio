@@ -1,307 +1,102 @@
-import React, { useEffect, useState, Suspense, lazy } from "react";
+import { lazy } from "react";
 import { motion } from "framer-motion";
-import { styles } from "../style";
-import { Download, Gamepad2, ChevronDown } from "lucide-react";
+import { ArrowDownRight, Download } from "lucide-react";
+import SceneMount from "./canvas/SceneMount";
+import RevealLines from "./ui/RevealLines";
+import Em from "./ui/Em";
+import useMediaQuery from "../hooks/useMediaQuery";
+import useNepalTime from "../hooks/useNepalTime";
+import { yearsOfExperience } from "../constants";
+import { fadeUp, stagger } from "../utils/motion";
 
-const ComputersCanvas = lazy(() =>
-  import("./canvas/Computers").then(module => ({ default: module.default }))
-);
+const HeroCanvas = lazy(() => import("./canvas/HeroCanvas"));
 
 const Hero = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [showGamesList, setShowGamesList] = useState(false);
+  const lite = useMediaQuery("(max-width: 768px), (pointer: coarse)");
+  const time = useNepalTime();
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 500px)");
-    setIsMobile(mediaQuery.matches);
-
-    const handleMediaQueryChange = (event) => {
-      setIsMobile(event.matches);
-    };
-
-    mediaQuery.addEventListener("change", handleMediaQueryChange);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleMediaQueryChange);
-    };
-  }, []);
-
-  const handleDownloadCV = () => {
-    const CV_URL = "/Anish_Sharma_CV.pdf";
-
-    const link = document.createElement("a");
-    link.href = CV_URL;
-    link.download = "Anish_Sharma_CV.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const games = [
-    {
-      name: "Brick Brew Game",
-      url: "https://brickgame.anish-sharma.com.np",
-      icon: "🎮",
-    },
-    {
-      name: "Neon Runner",
-      url: "https://neonrunner.anish-sharma.com.np/",
-      icon: "⚡",
-    },
-    {
-      name: "Neo Snake",
-      url: "https://snake.anish-sharma.com.np",
-      icon: "🐍",
-    },
+  const facts = [
+    ["Currently", "Platform Lead, KidnCode"],
+    ["Experience", "Shipping since 2022"],
+    ["Focus", "React · React Native · Node"],
+    ["Local time", `${time} in Nepal`],
   ];
+
   return (
-    <section className="relative w-full h-screen mx-auto">
-      {/* CV Download Button & Games Button */}
-      <div className="absolute top-20 right-4 sm:right-10 z-10 flex flex-col gap-2 sm:gap-3 items-end">
-        {/* CV Button */}
-        <button
-          onClick={handleDownloadCV}
-          className="flex items-center gap-1 sm:gap-2 bg-transparent hover:bg-white/10 px-2 sm:px-4 py-2 rounded-lg transition-all duration-300"
-        >
-          <span className="text-white text-sm sm:text-lg">My CV</span>
-          <Download className="w-4 sm:w-5 h-4 sm:h-5 text-white hover:text-[#915eff] transition-colors duration-300" />
-        </button>
-
-        {/* Games Button with Dropdown */}
-        <div className="relative">
-          <motion.button
-            onClick={() => setShowGamesList(!showGamesList)}
-            className="flex items-center gap-1 sm:gap-2 bg-gradient-to-r from-[#915eff]/20 to-[#6a3fcf]/20 hover:from-[#915eff]/40 hover:to-[#6a3fcf]/40 px-2 sm:px-4 py-2 rounded-lg transition-all duration-300 border border-[#915eff]/30 hover:border-[#915eff]/60"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Gamepad2 className="w-4 sm:w-5 h-4 sm:h-5 text-[#915eff]" />
-            <span className="text-white text-sm sm:text-lg">Games</span>
-            <ChevronDown
-              className="w-4 sm:w-5 h-4 sm:h-5 text-[#915eff] transition-transform duration-300"
-              style={{
-                transform: showGamesList ? "rotate(180deg)" : "rotate(0deg)",
-              }}
-            />
-          </motion.button>
-
-          {/* Games Dropdown Menu */}
-          <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={
-              showGamesList
-                ? { opacity: 1, y: 0, scale: 1 }
-                : { opacity: 0, y: -10, scale: 0.95 }
-            }
-            transition={{ duration: 0.2 }}
-            className={`absolute top-full right-0 mt-2 w-48 sm:w-64 backdrop-blur-xl bg-gradient-to-b from-[#0f0f1e]/95 to-[#1a1a2e]/95 border border-[#915eff]/50 rounded-xl overflow-hidden shadow-2xl ${
-              showGamesList ? "pointer-events-auto" : "pointer-events-none"
-            }`}
-          >
-            <div className="p-2 space-y-2">
-              {games.map((game, index) => (
-                <motion.a
-                  key={index}
-                  href={game.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 sm:gap-3 px-2 sm:px-4 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-[#915eff]/10 to-[#6a3fcf]/10 hover:from-[#915eff]/30 hover:to-[#6a3fcf]/30 border border-[#915eff]/20 hover:border-[#915eff]/50 transition-all duration-300 group"
-                  whileHover={{ x: 5 }}
-                >
-                  <span className="text-lg sm:text-2xl">{game.icon}</span>
-                  <div className="flex-1">
-                    <p className="text-white font-semibold text-xs sm:text-sm group-hover:text-[#915eff] transition-colors">
-                      {game.name}
-                    </p>
-                  </div>
-                  <svg
-                    className="w-3 sm:w-4 h-3 sm:h-4 text-[#915eff] group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10 6H6v12h4m0 0l8-8m-8 8l-4-4m4 4v6m0-12h4v12h-4"
-                    />
-                  </svg>
-                </motion.a>
-              ))}
-            </div>
-            <div className="px-2 sm:px-4 py-1 sm:py-2 bg-gradient-to-r from-[#915eff]/5 to-[#6a3fcf]/5 border-t border-[#915eff]/20">
-              <p className="text-[#915eff]/70 text-xs">Click to play 🎮</p>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      <div
-        className={`${styles.paddingX} absolute inset-0 top-[120px] max-w-7xl mx-auto flex flex-row items-start gap-5`}
+    <section id="top" className="relative flex min-h-[100svh] flex-col overflow-hidden">
+      <motion.div
+        variants={stagger(0.12, 0.1)}
+        initial="hidden"
+        animate="show"
+        className="mx-auto grid w-full max-w-[1400px] flex-1 items-center gap-2 px-5 pt-28 sm:px-8 sm:pt-32 lg:grid-cols-12 lg:pt-24"
       >
-        <div className="flex flex-col justify-center items-center mt-5">
-          <div className="w-5 h-5 rounded-full bg-[#915eff]" />
-          <div className="w-1 sm:h-80 h-40 violet-gradient" />
-        </div>
-        <div>
-          <h1 className={`${styles.heroHeadText} text-white`}>
-            Hi, I'm <span className="text-[#915eff]">Anish Sharma</span>
-          </h1>
-          <div className="mt-2">
-            <p className={`${styles.heroSubText} text-white-100 relative z-10`}>
-              <span className="inline-block animate-fade-in-up">
-                I develop{" "}
-              </span>
-              <span className="inline-block relative ml-2 animate-fade-in-scale">
-                <span className="bg-gradient-to-r from-[#915eff] via-[#6a3fcf] to-[#915eff] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent">
-                  web applications
-                </span>
-              </span>
-              <br className="sm:block hidden" />
-              <span className="inline-block text-[23px] sm:text-[27px] animate-fade-in-left">
-                <span className="text-white/80">and </span>
-                <span className="relative inline-block animate-fade-in-scale">
-                  <span className="bg-gradient-to-r from-[#00d4ff] via-[#915eff] to-[#00d4ff] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent">
-                    mobile applications
-                  </span>
-                </span>
-              </span>
-            </p>
-          </div>
-        </div>
-      </div>
+        <div className="relative z-10 lg:col-span-7">
+          <motion.p variants={fadeUp()} className="label flex items-center gap-3">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+            </span>
+            Anish Sharma — Platform Lead at KidnCode
+          </motion.p>
 
-      {!isMobile ? (
-        <Suspense fallback={null}>
-          <ComputersCanvas isMobile={isMobile} />
-        </Suspense>
-      ) : (
-        <div className="absolute inset-0 flex flex-col top-44 items-center justify-center px-6 text-center">
-          {/* Dancing Man - Small animation at the side */}
-          {/* <motion.div
-            className="absolute right-4 sm:right-8 top-1/2 transform -translate-y-1/2 z-10"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <motion.div
-              className="text-3xl sm:text-4xl"
-              animate={{
-                rotate: [0, 10, -10, 10, -10, 0],
-                y: [0, -10, 0, -10, 0],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                repeatType: "loop",
-                ease: "easeInOut",
-              }}
-            >
-              🕺
-            </motion.div>
-          </motion.div> */}
+          <RevealLines
+            as="h1"
+            lines={[
+              "Full-stack",
+              "engineer for",
+              <>
+                <Em className="text-accent">web</Em> &amp; <Em className="text-ice">mobile</Em>.
+              </>,
+            ]}
+            className="mt-7 text-[clamp(52px,11vw,124px)] font-medium leading-[0.92] tracking-[-0.05em]"
+          />
 
-          {/* Floating Cards with enhanced animations */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="w-full max-w-md space-y-6"
-          >
-            {/* Welcome Card with enhanced design */}
-            <motion.div
-              className="backdrop-blur-xl bg-gradient-to-br  "
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              {/* <motion.h3 
-                className="text-2xl font-bold text-white mb-4"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                Welcome To My Portfolio
-              </motion.h3> */}
-              <motion.div
-                className="flex flex-wrap gap-3 justify-center text-lg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                <span className="text-white/90">
-                  You're on the mobile version.
-                </span>
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#915eff] to-[#6a3fcf] font-semibold">
-                  For a stunning experience, visit on a larger screen! ✨
-                </span>
-              </motion.div>
-            </motion.div>
+          <motion.p variants={fadeUp()} className="mt-8 max-w-[34rem] text-lg leading-relaxed text-muted sm:text-xl">
+            {yearsOfExperience()}+ years shipping React, React Native and Node products across ed-tech, logistics and
+            analytics — and a few browser games on the side.
+          </motion.p>
 
-            {/* Animated Stats Section */}
-            {/* <motion.div 
-              className="grid grid-cols-3 gap-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-            >
-              {[
-                { label: "Projects", value: "20+", icon: "🎯" },
-                { label: "Experience", value: "3 Years", icon: "⚡" },
-                { label: "Clients", value: "15+", icon: "🤝" }
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 rounded-xl p-4 text-center"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="text-2xl mb-1">{stat.icon}</div>
-                  <div className="text-xl font-bold text-[#915eff]">{stat.value}</div>
-                  <div className="text-sm text-white/80">{stat.label}</div>
-                </motion.div>
-              ))}
-            </motion.div> */}
-          </motion.div>
-
-          {/* Enhanced Glowing Button */}
-          <motion.div
-            className="mt-8 w-16 h-16 rounded-full bg-gradient-to-br from-[#915eff] via-[#6a3fcf] to-[#3a1f99] flex items-center justify-center shadow-2xl"
-            animate={{
-              scale: [1, 1.1, 1],
-              boxShadow: [
-                "0 0 0 0 rgba(145, 94, 255, 0)",
-                "0 0 30px 15px rgba(145, 94, 255, 0.4)",
-                "0 0 0 0 rgba(145, 94, 255, 0)",
-              ],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-          >
-            <p className="text-white text-3xl">🚀</p>
+          <motion.div variants={fadeUp()} className="mt-10 flex flex-wrap items-center gap-3">
+            <a href="#work" className="btn bg-accent text-ink hover:bg-fg">
+              Selected work <ArrowDownRight className="h-4 w-4" />
+            </a>
+            <a href="/Anish_Sharma_CV.pdf" download="Anish_Sharma_CV.pdf" className="btn-line">
+              <Download className="h-4 w-4" /> Download CV
+            </a>
           </motion.div>
         </div>
-      )}
 
-      <div className="absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center">
-        <a href="#about">
-          <div className="w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2">
-            <motion.div
-              animate={{
-                y: [0, 24, 0],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                repeatType: "loop",
-              }}
-              className="w-3 h-3 rounded-full bg-secondary mb-1"
-            />
-          </div>
-        </a>
+        <motion.div variants={fadeUp(0.2)} className="relative -mx-5 sm:mx-0 lg:col-span-5">
+          <div
+            className="pointer-events-none absolute inset-[8%] rounded-full bg-cobalt/30 blur-[90px]"
+            aria-hidden="true"
+          />
+          <SceneMount
+            className="h-[400px] sm:h-[520px] lg:h-[680px]"
+            label="Byte, a friendly 3D robot, hovers inside a ring while its cube sidekick Bit hops around it."
+          >
+            {(frameloop) => <HeroCanvas frameloop={frameloop} lite={lite} />}
+          </SceneMount>
+          <p className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+            ({lite ? "tap" : "click"} the robot)
+          </p>
+        </motion.div>
+      </motion.div>
+
+      <div className="mx-auto w-full max-w-[1400px] px-5 pb-8 pt-6 sm:px-8">
+        <dl className="grid grid-cols-2 border-t border-white/15 md:grid-cols-4">
+          {facts.map(([label, value], i) => (
+            <div
+              key={label}
+              className={`flex flex-col-reverse gap-1.5 border-white/10 py-5 pr-4 ${
+                i % 2 === 0 ? "border-r md:border-r-0" : "pl-4 md:pl-0"
+              } ${i > 1 ? "border-t md:border-t-0" : ""}`}
+            >
+              <dd className="text-sm text-fg sm:text-[15px]">{value}</dd>
+              <dt className="label">{label}</dt>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

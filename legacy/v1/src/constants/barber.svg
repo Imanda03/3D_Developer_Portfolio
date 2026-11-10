@@ -1,0 +1,32 @@
+<svg width="1200" height="620" viewBox="0 0 1200 620" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f0f1e"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#915eff"/>
+      <stop offset="100%" stop-color="#6a3fcf"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#915eff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#915eff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="620" fill="url(#bg)"/>
+  <rect width="1200" height="620" fill="url(#glow)"/>
+
+  <g transform="translate(600,235)" stroke="url(#accent)" stroke-width="10" fill="none" stroke-linecap="round">
+    <circle cx="-90" cy="70" r="34"/>
+    <circle cx="90" cy="70" r="34"/>
+    <line x1="-70" y1="45" x2="120" y2="-140"/>
+    <line x1="70" y1="45" x2="-120" y2="-140"/>
+  </g>
+
+  <text x="600" y="450" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="58" font-weight="700" fill="#ffffff">Barber-MERN</text>
+  <text x="600" y="500" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="26" fill="#aaa6b9">Multi-role Booking Platform</text>
+
+  <g font-family="Poppins, Arial, sans-serif" font-size="20" fill="#915eff">
+    <text x="600" y="555" text-anchor="middle">React · Node.js · Express · MongoDB</text>
+  </g>
+</svg>

@@ -1,259 +1,195 @@
-import React, { useState } from "react";
-import { Tilt } from "react-tilt";
-import { motion } from "framer-motion";
-
-import { styles } from "../style";
-import { github } from "../assets";
-import { SectionWrapper } from "../hoc";
+import { useState } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import Section from "./ui/Section";
+import SectionHeader from "./ui/SectionHeader";
+import Cover from "./ui/Cover";
+import Em from "./ui/Em";
+import TechGlyph from "./ui/TechGlyph";
+import useMediaQuery from "../hooks/useMediaQuery";
 import { projects } from "../constants";
-import { fadeIn, textVariant } from "../utils/motion";
+import { fadeUp } from "../utils/motion";
 
-const DEFAULT_COVER = { from: "#915eff", to: "#00d4ff", emoji: "⚡" };
+const featured = projects.filter((p) => p.kind === "professional");
+const side = projects.filter((p) => p.kind === "personal");
+const pad = (n) => String(n).padStart(2, "0");
+const host = (url) => url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+const COVER_TONES = ["cobalt", "tangerine", "ice"];
 
-const getCoverTheme = (name, cover) => {
-  if (cover) return cover;
-
-  const lower = name.toLowerCase();
-  if (lower.includes("lms") || lower.includes("teacher") || lower.includes("kidn"))
-    return { from: "#FFD700", to: "#915eff", emoji: "🎓" };
-  if (lower.includes("lodbod") || lower.includes("shipment"))
-    return { from: "#00d4ff", to: "#6a3fcf", emoji: "🚚" };
-  if (lower.includes("concerto") || lower.includes("analytics"))
-    return { from: "#38ef7d", to: "#11998e", emoji: "📊" };
-  if (lower.includes("store") || lower.includes("shop") || lower.includes("bigdog"))
-    return { from: "#f7971e", to: "#ffd200", emoji: "🛒" };
-  if (lower.includes("hotel") || lower.includes("macro"))
-    return { from: "#667eea", to: "#764ba2", emoji: "🏨" };
-  if (lower.includes("note")) return { from: "#f093fb", to: "#f5576c", emoji: "📝" };
-  if (lower.includes("library")) return { from: "#4facfe", to: "#00f2fe", emoji: "📚" };
-  if (lower.includes("barber")) return { from: "#fa709a", to: "#fee140", emoji: "💈" };
-
-  return DEFAULT_COVER;
+const Media = ({ project }) => {
+  const inner = (
+    <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-elev ring-1 ring-white/10">
+      {project.image ? (
+        <img
+          src={project.image}
+          alt={`${project.name} — homepage screenshot`}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover object-top transition duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.035]"
+        />
+      ) : (
+        <Cover name={project.name} tags={project.tags} note="Private build" />
+      )}
+    </div>
+  );
+  return project.live ? (
+    <a href={project.live} target="_blank" rel="noopener noreferrer" tabIndex={-1} aria-hidden="true">
+      {inner}
+    </a>
+  ) : (
+    inner
+  );
 };
 
-const ProjectCover = ({ name, tags, cover }) => {
-  const theme = getCoverTheme(name, cover);
-  const shortName = name.length > 18 ? `${name.slice(0, 16)}…` : name;
+const FeaturedRow = ({ project, i }) => (
+  <motion.article
+    variants={fadeUp()}
+    className="group grid gap-7 border-t border-white/15 py-10 sm:py-14 lg:grid-cols-12 lg:gap-12 lg:py-16"
+  >
+    <div className={`lg:col-span-7 ${i % 2 ? "lg:order-2" : ""}`}>
+      <Media project={project} />
+    </div>
+    <div className="flex flex-col justify-between gap-8 lg:col-span-5 lg:py-1">
+      <div className="label flex items-center justify-between">
+        <span>
+          {pad(i + 1)} / {pad(featured.length)}
+        </span>
+        <span>Built at {project.org}</span>
+      </div>
+      <div>
+        <h3 className="text-[clamp(38px,4.6vw,68px)] font-medium leading-[0.95] tracking-[-0.045em]">{project.name}</h3>
+        <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg">{project.description}</p>
+      </div>
+      <div className="flex flex-col gap-6">
+        <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-fg/85">
+          {project.tags.map((t) => (
+            <li key={t} className="flex items-center gap-1.5">
+              <TechGlyph name={t} className="h-3.5 w-3.5 text-muted" />
+              {t}
+            </li>
+          ))}
+        </ul>
+        {project.live ? (
+          <a
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link inline-flex w-fit items-center gap-1.5 text-lg text-accent"
+          >
+            {host(project.live)} <ArrowUpRight className="h-5 w-5 transition duration-300 group-hover:rotate-45" />
+          </a>
+        ) : (
+          <span className="label">Not public yet</span>
+        )}
+      </div>
+    </div>
+  </motion.article>
+);
+
+const SideIndex = () => {
+  const [hovered, setHovered] = useState(null);
+  const finePointer = useMediaQuery("(hover: hover) and (pointer: fine)");
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 260, damping: 28 });
+  const sy = useSpring(y, { stiffness: 260, damping: 28 });
 
   return (
     <div
-      className="relative w-full h-full overflow-hidden rounded-2xl"
-      style={{
-        background: `linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 50%, #0f0f1e 100%)`,
+      className="mt-24 sm:mt-32"
+      onPointerMove={(e) => {
+        x.set(e.clientX - 160);
+        y.set(e.clientY - 105);
       }}
     >
-      <motion.div
-        className="absolute -top-10 -left-10 w-40 h-40 rounded-full blur-3xl opacity-60"
-        style={{ background: theme.from }}
-        animate={{ x: [0, 20, 0], y: [0, 15, 0], scale: [1, 1.15, 1] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute -bottom-12 -right-8 w-44 h-44 rounded-full blur-3xl opacity-50"
-        style={{ background: theme.to }}
-        animate={{ x: [0, -18, 0], y: [0, -12, 0], scale: [1, 1.2, 1] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute top-1/2 left-1/2 w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl opacity-30"
-        style={{ background: `linear-gradient(135deg, ${theme.from}, ${theme.to})` }}
-        animate={{ scale: [0.9, 1.25, 0.9], opacity: [0.2, 0.45, 0.2] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-      />
+      <motion.div variants={fadeUp()} className="flex items-end justify-between gap-6">
+        <h3 className="text-[clamp(30px,3.4vw,48px)] font-medium tracking-[-0.04em]">
+          Side <Em>projects</Em>
+        </h3>
+        <p className="label hidden sm:block">Open source · GitHub</p>
+      </motion.div>
 
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)
-          `,
-          backgroundSize: "28px 28px",
-        }}
-      />
-
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
-        <motion.span
-          className="text-5xl drop-shadow-lg"
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        >
-          {theme.emoji}
-        </motion.span>
-        <p
-          className="mt-3 text-white font-bold text-lg leading-tight line-clamp-2"
-          style={{
-            textShadow: `0 0 24px ${theme.from}88`,
-          }}
-        >
-          {shortName}
-        </p>
-        <div className="mt-3 flex flex-wrap justify-center gap-1.5 max-w-[90%]">
-          {tags.slice(0, 3).map((tag) => (
-            <span
-              key={tag.name}
-              className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full border border-white/20 text-white/80 bg-black/20 backdrop-blur-sm"
+      <ul className="mt-8 border-b border-white/15" onPointerLeave={() => setHovered(null)}>
+        {side.map((p, i) => (
+          <motion.li key={p.name} variants={fadeUp()} onPointerEnter={() => setHovered(i)}>
+            <a
+              href={p.code}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-4 gap-y-2 border-t border-white/15 py-6 transition-colors duration-300 hover:text-accent sm:py-7 lg:grid-cols-12"
             >
-              {tag.name}
-            </span>
-          ))}
-        </div>
-      </div>
+              <span className="font-mono text-[11px] text-muted lg:col-start-1 lg:col-end-2 lg:row-start-1">{pad(i + 1)}</span>
+              <span className="text-2xl font-medium tracking-[-0.03em] transition-transform duration-500 group-hover:translate-x-2 sm:text-3xl lg:col-start-2 lg:col-end-6 lg:row-start-1">
+                {p.name}
+              </span>
+              <ArrowUpRight
+                className="h-5 w-5 self-center justify-self-end transition duration-300 group-hover:rotate-45 lg:col-start-12 lg:col-end-13 lg:row-start-1"
+                aria-hidden="true"
+              />
+              <span className="col-start-2 col-end-4 text-sm leading-relaxed text-muted lg:col-start-6 lg:col-end-10 lg:row-start-1">
+                {p.description}
+              </span>
+              <span className="col-start-2 col-end-4 font-mono text-[11px] uppercase tracking-[0.1em] text-muted lg:col-start-10 lg:col-end-12 lg:row-start-1">
+                {p.tags.join(" / ")}
+              </span>
+            </a>
+          </motion.li>
+        ))}
+      </ul>
 
-      <div
-        className="absolute inset-x-0 bottom-0 h-1/3 opacity-40"
-        style={{
-          background: `linear-gradient(to top, ${theme.to}55, transparent)`,
-        }}
-      />
+      {finePointer && (
+        <motion.div
+          className="pointer-events-none fixed left-0 top-0 z-40 h-[210px] w-[320px] overflow-hidden rounded-xl shadow-2xl ring-1 ring-white/10"
+          style={{ x: sx, y: sy }}
+          animate={{ opacity: hovered === null ? 0 : 1, scale: hovered === null ? 0.85 : 1 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          aria-hidden="true"
+        >
+          {side.map((p, i) => (
+            <div
+              key={p.name}
+              className="absolute inset-0 transition-opacity duration-300"
+              style={{ opacity: hovered === i ? 1 : 0 }}
+            >
+              {p.image ? (
+                <img src={p.image} alt="" className="h-full w-full object-cover" />
+              ) : (
+                <Cover name={p.name} tags={p.tags} note="GitHub" tone={COVER_TONES[i % 3]} compact className="!p-5" />
+              )}
+            </div>
+          ))}
+        </motion.div>
+      )}
     </div>
   );
 };
 
-const ExternalLinkIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="w-5 h-5 text-white"
-  >
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-    <polyline points="15 3 21 3 21 9" />
-    <line x1="10" y1="14" x2="21" y2="3" />
-  </svg>
+const Works = () => (
+  <>
+    <SectionHeader
+      index="01"
+      label="Selected work"
+      lines={[
+        "Products live",
+        <>
+          in <Em className="text-accent">production</Em>.
+        </>,
+      ]}
+      lead="Platforms I've built and shipped for real customers — from an international LMS to logistics in Nepal."
+    />
+    <div className="mt-12 border-b border-white/15 sm:mt-16">
+      {featured.map((p, i) => (
+        <FeaturedRow key={p.name} project={p} i={i} />
+      ))}
+    </div>
+    <SideIndex />
+  </>
 );
 
-const ProjectCard = ({
-  index,
-  name,
-  description,
-  tags,
-  image,
-  cover,
-  live_link,
-  source_code_link,
-}) => {
-  const [imageFailed, setImageFailed] = useState(false);
-  const showCover = !image || imageFailed;
+const WorksSection = () => (
+  <Section id="work">
+    <Works />
+  </Section>
+);
 
-  return (
-    <motion.div
-      variants={fadeIn("up", "spring", index * 0.5, 0.75)}
-      whileHover={{ y: -10 }}
-      className="group h-full"
-    >
-      <Tilt
-        options={{
-          max: 25,
-          scale: 1.05,
-          speed: 450,
-        }}
-        className="bg-tertiary p-5 rounded-2xl w-full h-full min-h-[500px] flex flex-col hover:shadow-2xl hover:shadow-[#915eff]/30 transition-all duration-300 border border-transparent hover:border-[#915eff]/30"
-      >
-        <div className="relative w-full h-[200px] shrink-0 overflow-hidden rounded-2xl">
-          {showCover ? (
-            <ProjectCover name={name} tags={tags} cover={cover} />
-          ) : (
-            <motion.img
-              src={image}
-              alt={name}
-              className="w-full h-full object-cover rounded-2xl"
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.3 }}
-              onError={() => setImageFailed(true)}
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#915eff]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-          {(live_link || source_code_link) && (
-            <div className="absolute inset-0 flex justify-end gap-2 m-3 card-img_hover">
-              {live_link && (
-                <motion.button
-                  type="button"
-                  onClick={() => window.open(live_link, "_blank")}
-                  className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer hover:bg-gradient-to-r hover:from-[#915eff] hover:to-[#6a3fcf] transition-all duration-300"
-                  whileHover={{ scale: 1.1, rotate: 360 }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label={`Visit ${name}`}
-                >
-                  <ExternalLinkIcon />
-                </motion.button>
-              )}
-              {source_code_link && (
-                <motion.button
-                  type="button"
-                  onClick={() => window.open(source_code_link, "_blank")}
-                  className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer hover:bg-gradient-to-r hover:from-[#915eff] hover:to-[#6a3fcf] transition-all duration-300 group/btn"
-                  whileHover={{ scale: 1.1, rotate: 360 }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label={`View ${name} source code`}
-                >
-                  <motion.img
-                    src={github}
-                    alt="source code"
-                    className="w-1/2 h-1/2 object-contain group-hover/btn:brightness-0 group-hover/btn:invert transition-all duration-300"
-                  />
-                </motion.button>
-              )}
-            </div>
-          )}
-        </div>
-
-        <div className="mt-4 flex flex-col flex-1">
-          <h3 className="text-white font-bold text-[20px] line-clamp-2 min-h-[56px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#915eff] group-hover:to-[#6a3fcf] transition-all duration-300">
-            {name}
-          </h3>
-          <p className="mt-2 text-secondary text-[13px] leading-[20px] line-clamp-4 min-h-[80px] group-hover:text-white/90 transition-colors duration-300">
-            {description}
-          </p>
-        </div>
-
-        <div className="mt-3 flex flex-wrap gap-1.5 shrink-0 min-h-[56px] content-start">
-          {tags.map((tag) => (
-            <motion.p
-              key={`${name}-${tag.name}`}
-              className={`text-[12px] ${tag.color} px-2 py-0.5 rounded-md bg-tertiary/50 group-hover:bg-tertiary/80 transition-colors duration-300`}
-              whileHover={{ scale: 1.1 }}
-            >
-              #{tag.name}
-            </motion.p>
-          ))}
-        </div>
-      </Tilt>
-    </motion.div>
-  );
-};
-
-const Works = () => {
-  return (
-    <>
-      <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} `}>My work</p>
-        <h2 className={`${styles.sectionHeadText}`}>Projects.</h2>
-      </motion.div>
-
-      <div className="w-full flex">
-        <motion.p
-          variants={fadeIn("", "", 0.1, 1)}
-          className="mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]"
-        >
-          A mix of professional products shipped at work and personal projects
-          that showcase my skills across ed-tech, logistics, business intelligence,
-          e-commerce, and full-stack development.
-        </motion.p>
-      </div>
-
-      <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} index={index} {...project} />
-        ))}
-      </div>
-    </>
-  );
-};
-
-export default SectionWrapper(Works, "");
+export default WorksSection;

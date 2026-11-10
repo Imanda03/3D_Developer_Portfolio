@@ -1,0 +1,67 @@
+import {
+  siAngular,
+  siCss,
+  siDocker,
+  siDotnet,
+  siExpress,
+  siFigma,
+  siGit,
+  siHtml5,
+  siJavascript,
+  siMongodb,
+  siNestjs,
+  siNextdotjs,
+  siNodedotjs,
+  siPostman,
+  siReact,
+  siRedux,
+  siSequelize,
+  siStripe,
+  siSupabase,
+  siTailwindcss,
+  siThreedotjs,
+  siTypescript,
+} from "simple-icons";
+
+// name -> simple-icons glyph ({ path, hex }). SQL has no single brand mark, so it renders text-only.
+export const TECH = {
+  React: siReact,
+  "React Native": siReact,
+  "Next.js": siNextdotjs,
+  TypeScript: siTypescript,
+  JavaScript: siJavascript,
+  Redux: siRedux,
+  "Tailwind CSS": siTailwindcss,
+  HTML5: siHtml5,
+  CSS: siCss,
+  Angular: siAngular,
+  "Three.js": siThreedotjs,
+  "Node.js": siNodedotjs,
+  NestJS: siNestjs,
+  Express: siExpress,
+  ".NET": siDotnet,
+  MongoDB: siMongodb,
+  Supabase: siSupabase,
+  SQL: null,
+  Sequelize: siSequelize,
+  Stripe: siStripe,
+  Docker: siDocker,
+  Git: siGit,
+  Postman: siPostman,
+  Figma: siFigma,
+};
+
+export const techGroups = [
+  {
+    title: "Frontend & Mobile",
+    items: ["React", "React Native", "Next.js", "TypeScript", "JavaScript", "Redux", "Tailwind CSS", "Angular", "Three.js", "HTML5", "CSS"],
+  },
+  {
+    title: "Backend & Data",
+    items: ["Node.js", "NestJS", "Express", ".NET", "Supabase", "MongoDB", "SQL", "Sequelize", "Stripe"],
+  },
+  {
+    title: "DevOps & Tools",
+    items: ["Docker", "Git", "Postman", "Figma"],
+  },
+];
