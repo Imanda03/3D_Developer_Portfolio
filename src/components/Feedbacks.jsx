@@ -1,66 +1,38 @@
-import React from "react";
 import { motion } from "framer-motion";
-
-import { styles } from "../style";
-import { SectionWrapper } from "../hoc";
-import { fadeIn, textVariant } from "../utils/motion";
+import Section from "./ui/Section";
+import SectionHeader from "./ui/SectionHeader";
+import Em from "./ui/Em";
 import { testimonials } from "../constants";
+import { fadeUp } from "../utils/motion";
 
-const FeedbackCard = ({
-  index,
-  testimonial,
-  name,
-  designation,
-  company,
-  image,
-}) => (
-  <motion.div
-    variants={fadeIn("", "spring", index * 0.5, 0.75)}
-    className="bg-black-200 p-10 rounded-3xl xs:w-[320px] w-full"
-  >
-    <p className="text-white font-black text-[48px]">"</p>
-
-    <div className="mt-1">
-      <p className="text-white tracking-wider text-[18px]">{testimonial}</p>
-
-      <div className="mt-7 flex justify-between items-center gap-1">
-        <div className="flex-1 flex flex-col">
-          <p className="text-white font-medium text-[16px]">
-            <span className="blue-text-gradient">@</span> {name}
-          </p>
-          <p className="mt-1 text-secondary text-[12px]">
-            {designation} of {company}
-          </p>
-        </div>
-
-        <img
-          src={image}
-          alt={`feedback_by-${name}`}
-          className="w-10 h-10 rounded-full object-cover"
-        />
-      </div>
-    </div>
-  </motion.div>
+const Feedbacks = () => (
+  <>
+    <SectionHeader index="✳" label="Kind words" lines={[<>What people <Em className="text-accent">say</Em>.</>]} />
+    <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl bg-white/10 md:grid-cols-2 lg:grid-cols-3">
+      {testimonials.map((t) => (
+        <motion.li key={t.name} variants={fadeUp()} className="bg-ink">
+          <figure className="flex h-full flex-col p-8">
+            <blockquote className="flex-1 font-serif text-2xl italic leading-snug">“{t.quote}”</blockquote>
+            <figcaption className="mt-8 flex items-center gap-3">
+              {t.avatar && <img src={t.avatar} alt="" className="h-10 w-10 rounded-full object-cover" />}
+              <span>
+                <span className="block text-sm font-medium">{t.name}</span>
+                <span className="block text-xs text-muted">{t.role}</span>
+              </span>
+            </figcaption>
+          </figure>
+        </motion.li>
+      ))}
+    </ul>
+  </>
 );
 
-const Feedbacks = () => {
-  return (
-    <div className={`mt-12 bg-black-100 rounded-[20px]`}>
-      <div
-        className={`bg-tertiary rounded-2xl ${styles.padding} min-h-[300px]`}
-      >
-        <motion.div variants={textVariant()}>
-          <p className={styles.sectionSubText}>What others say</p>
-          <h2 className={styles.sectionHeadText}>Testimonials.</h2>
-        </motion.div>
-      </div>
-      <div className={`-mt-20 pb-14 ${styles.paddingX} flex flex-wrap gap-7`}>
-        {testimonials.map((testimonial, index) => (
-          <FeedbackCard key={testimonial.name} index={index} {...testimonial} />
-        ))}
-      </div>
-    </div>
-  );
-};
+// Only rendered once real testimonials are added in constants.
+const Testimonials = () =>
+  testimonials.length ? (
+    <Section id="testimonials">
+      <Feedbacks />
+    </Section>
+  ) : null;
 
-export default SectionWrapper(Feedbacks, "");
+export default Testimonials;

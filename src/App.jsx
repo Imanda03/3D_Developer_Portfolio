@@ -1,40 +1,43 @@
-import { BrowserRouter } from "react-router-dom";
 import {
   About,
+  Background,
   Contact,
+  ContactDock,
   Experience,
   Feedbacks,
+  Footer,
   Hero,
+  Marquee,
   Navbar,
+  Playground,
   Tech,
   Works,
-  StarsCanvas,
 } from "./components";
-import FloatingParticles from "./components/FloatingParticles";
-import FloatingSocialBar from "./components/FloatingSocialBar";
+import useSmoothScroll from "./hooks/useSmoothScroll";
 
 const App = () => {
+  useSmoothScroll();
   return (
-    <BrowserRouter>
-      <div className="relative z-0 bg-primary overflow-hidden">
-        <FloatingParticles />
-        <FloatingSocialBar />
-        <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/50 via-transparent to-primary/50 pointer-events-none" />
-          <Navbar />
-          <Hero />
-        </div>
+    <>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
+      <Background />
+      <Navbar />
+      <main id="main">
+        <Hero />
+        <Marquee />
+        <Works />
         <About />
         <Experience />
         <Tech />
-        <Works />
+        <Playground />
         <Feedbacks />
-        <div className="relative z-0">
-          <Contact />
-          <StarsCanvas />
-        </div>
-      </div>
-    </BrowserRouter>
+        <Contact />
+      </main>
+      <Footer />
+      <ContactDock />
+    </>
   );
 };
 

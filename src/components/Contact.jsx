@@ -1,89 +1,63 @@
-import React, { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { lazy, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import { styles } from "../style";
-import { EarthCanvas } from "./canvas";
-import { SectionWrapper } from "../hoc";
-import { slideIn } from "../utils/motion";
-import { AlertCircle, CheckCircle2, X } from "lucide-react";
+import { ArrowUpRight, Loader2 } from "lucide-react";
+import Section from "./ui/Section";
+import SectionHeader from "./ui/SectionHeader";
+import Em from "./ui/Em";
+import SceneMount from "./canvas/SceneMount";
+import useMediaQuery from "../hooks/useMediaQuery";
+import { socials } from "../constants";
+import { fadeUp } from "../utils/motion";
 
-const Toast = ({ message, type, onClose }) => {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      onClose();
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, [onClose]);
+const ContactCanvas = lazy(() => import("./canvas/ContactCanvas"));
 
+const EMAILJS = {
+  serviceId: import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
+  templateId: import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+  publicKey: import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY,
+};
+
+const channels = [
+  ["WhatsApp", socials.whatsapp],
+  ["LinkedIn", socials.linkedin],
+  ["GitHub", socials.github],
+];
+
+const EMPTY = { name: "", email: "", message: "" };
+
+const Field = ({ label, id, textarea, ...props }) => {
+  const Tag = textarea ? "textarea" : "input";
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -50 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -50 }}
-      className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 min-w-[320px] max-w-md"
-    >
-      <div
-        className={`
-        p-4 rounded-lg shadow-lg flex items-center justify-between
-        ${type === "success" ? "bg-green-600" : "bg-red-600"} text-white
-      `}
-      >
-        <div className="flex items-center gap-3">
-          {type === "success" ? (
-            <CheckCircle2 className="w-6 h-6 shrink-0" />
-          ) : (
-            <AlertCircle className="w-6 h-6 shrink-0" />
-          )}
-          <p className="font-medium">{message}</p>
-        </div>
-        <button
-          onClick={onClose}
-          className="ml-4 hover:opacity-80 transition-opacity"
-        >
-          <X className="w-5 h-5" />
-        </button>
-      </div>
-    </motion.div>
+    <label htmlFor={id} className="block">
+      <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink/70">{label}</span>
+      <Tag
+        id={id}
+        name={id}
+        required
+        className={`mt-1 w-full border-0 border-b border-ink/25 bg-transparent px-0 py-3 text-lg text-ink placeholder:text-ink/40 transition duration-300 focus:border-ink focus:outline-none sm:text-xl ${
+          textarea ? "min-h-[140px] resize-y" : ""
+        }`}
+        {...props}
+      />
+    </label>
   );
 };
 
 const Contact = () => {
-  const formRef = useRef();
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const lite = useMediaQuery("(max-width: 768px), (pointer: coarse)");
+  const [form, setForm] = useState(EMPTY);
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
 
-  const [loading, setLoading] = useState(false);
-  const [toast, setToast] = useState(null);
+  const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleChange = (e) => {
-    const { target } = e;
-    const { name, value } = target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
+    setStatus("sending");
     try {
-      // Replace these with your actual EmailJS credentials
-      const serviceId = "service_rjqpv5a";
-      const templateId = "template_rfz8pee";
-      const publicKey = "e7DKSL0XNxPXIxvyc";
-
-      if (!serviceId || !templateId || !publicKey) {
-        throw new Error("EmailJS configuration is missing");
-      }
-
-      const result = await emailjs.send(
-        serviceId,
-        templateId,
+      await emailjs.send(
+        EMAILJS.serviceId,
+        EMAILJS.templateId,
         {
           from_name: form.name,
           to_name: "Anish Sharma",
@@ -91,111 +65,118 @@ const Contact = () => {
           to_email: "asis03ktm@gmail.com",
           message: form.message,
         },
-        publicKey
+        { publicKey: EMAILJS.publicKey }
       );
-
-      console.log("Email sent successfully:", result);
-
-      setToast({
-        type: "success",
-        message: "Thank you! I will get back to you as soon as possible.",
-      });
-
-      setForm({
-        name: "",
-        email: "",
-        message: "",
-      });
-    } catch (error) {
-      console.error("Failed to send email:", error);
-      setToast({
-        type: "error",
-        message: "Failed to send email. Please try again.",
-      });
-    } finally {
-      setLoading(false);
+      setForm(EMPTY);
+      setStatus("sent");
+    } catch {
+      setStatus("error");
     }
   };
 
   return (
-    <div className="relative xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden">
-      
+    <>
+      <SectionHeader
+        tone="tangerine"
+        index="06"
+        label="Contact"
+        lines={[
+          "Got something",
+          <>
+            to <Em>build</Em>?
+          </>,
+        ]}
+        lead="Send a note below, or reach me directly on WhatsApp or LinkedIn."
+      />
 
-      <motion.div
-        variants={slideIn("left", "tween", 0.2, 1)}
-        className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
-      >
-        <p className={styles.sectionSubText}>Get in touch</p>
-        <h3 className={styles.sectionHeadText}>Contact.</h3>
-        <AnimatePresence>
-        {toast && (
-          <Toast
-            message={toast.message}
-            type={toast.type}
-            onClose={() => setToast(null)}
-          />
-        )}
-      </AnimatePresence>
-        <form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          className="mt-12 flex flex-col gap-8"
-        >
-          <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Name</span>
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="What's your name?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
-              required
-            />
-          </label>
-          <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your email</span>
-            <input
+      <div className="mt-12 grid gap-12 lg:mt-16 lg:grid-cols-12 lg:gap-8">
+        <motion.form variants={fadeUp()} onSubmit={onSubmit} className="space-y-8 lg:col-span-7 lg:pr-10">
+          <div className="grid gap-8 sm:grid-cols-2">
+            <Field label="Name" id="name" value={form.name} onChange={onChange} placeholder="Jane Doe" autoComplete="name" />
+            <Field
+              label="Email"
+              id="email"
               type="email"
-              name="email"
               value={form.email}
-              onChange={handleChange}
-              placeholder="What's your email address?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
-              required
+              onChange={onChange}
+              placeholder="jane@company.com"
+              autoComplete="email"
             />
-          </label>
-          <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Message</span>
-            <textarea
-              rows={7}
-              name="message"
-              value={form.message}
-              onChange={handleChange}
-              placeholder="What would you like to say?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
-              required
-            />
-          </label>
+          </div>
+          <Field
+            label="Message"
+            id="message"
+            textarea
+            rows={5}
+            value={form.message}
+            onChange={onChange}
+            placeholder="What are you building?"
+          />
+          <div className="flex flex-wrap items-center gap-5">
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="btn bg-ink px-8 py-4 text-base text-fg hover:bg-cobalt disabled:cursor-wait disabled:opacity-70"
+            >
+              {status === "sending" ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" /> Sending
+                </>
+              ) : (
+                <>
+                  Send message <ArrowUpRight className="h-4 w-4" />
+                </>
+              )}
+            </button>
+            <p role="status" aria-live="polite" className="text-sm font-medium text-ink">
+              <AnimatePresence mode="wait">
+                {status === "sent" && (
+                  <motion.span key="sent" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                    Thanks — message received. I&apos;ll be in touch.
+                  </motion.span>
+                )}
+                {status === "error" && (
+                  <motion.span key="error" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                    That didn&apos;t send. Please try WhatsApp instead.
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </p>
+          </div>
+        </motion.form>
 
-          <button
-            type="submit"
-            className="bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary hover:bg-opacity-90 transition-all disabled:opacity-50"
-            disabled={loading}
+        <motion.div variants={fadeUp(0.1)} className="flex flex-col gap-6 lg:col-span-5">
+          <SceneMount
+            className="h-[340px] overflow-hidden rounded-3xl bg-ink sm:h-[420px]"
+            label="Byte the robot holding a letter while paper planes circle around it."
           >
-            {loading ? "Sending..." : "Send"}
-          </button>
-        </form>
-      </motion.div>
-
-      <motion.div
-        variants={slideIn("right", "tween", 0.2, 1)}
-        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px]"
-      >
-        <EarthCanvas />
-      </motion.div>
-    </div>
+            {(frameloop) => <ContactCanvas frameloop={frameloop} lite={lite} />}
+          </SceneMount>
+          <ul className="border-b border-ink/20">
+            {channels.map(([name, url]) => (
+              <li key={name}>
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between border-t border-ink/20 py-4 text-2xl font-medium tracking-[-0.03em]"
+                >
+                  {name}
+                  <ArrowUpRight className="h-6 w-6 transition duration-300 group-hover:rotate-45" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      </div>
+    </>
   );
 };
 
-export default SectionWrapper(Contact, "contact");
+const ContactSection = () => (
+  <Section id="contact" tone="tangerine">
+    <Contact />
+  </Section>
+);
+
+export default ContactSection;
